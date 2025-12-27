@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ServeMaroc | تسجيل حساب جديد</title>
+    <title>ServeMaroc | إنشاء حساب</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
         body { font-family: 'Cairo', sans-serif; background: linear-gradient(180deg, #fef08a 0%, #dcfce7 100%); min-height: 100vh; }
@@ -20,7 +19,7 @@
     <div class="max-w-md mx-auto mt-6">
         <div class="text-center mb-8">
             <h1 class="text-4xl font-black text-green-700 tracking-tighter">SERVE<span class="text-black">MAROC</span></h1>
-            <p class="text-gray-600 font-bold italic mt-1">المنصة الأولى لنمو الحسابات بالمغرب</p>
+            <p class="text-gray-600 font-bold italic mt-1">المنصة رقم #1 لنمو السوشيال ميديا</p>
         </div>
 
         <div class="glass p-8">
@@ -29,26 +28,26 @@
                 <div class="w-1/2 pb-3 border-b-4 border-green-600 text-green-600">إنشاء حساب</div>
             </div>
 
-            <div id="registerForm" class="space-y-4">
+            <div id="regForm" class="space-y-4">
                 <div class="relative">
                     <i class="fa-solid fa-user absolute left-4 top-4 text-gray-400"></i>
-                    <input id="userName" type="text" placeholder="اسم المستخدم" class="w-full p-4 pl-12 border rounded-2xl outline-none focus:ring-2 focus:ring-green-500 transition">
+                    <input id="uName" type="text" placeholder="اسم المستخدم" class="w-full p-4 pl-12 border rounded-2xl outline-none focus:ring-2 focus:ring-green-500">
                 </div>
                 <div class="relative">
                     <i class="fa-solid fa-envelope absolute left-4 top-4 text-gray-400"></i>
-                    <input id="userEmail" type="email" placeholder="البريد الإلكتروني" class="w-full p-4 pl-12 border rounded-2xl outline-none focus:ring-2 focus:ring-green-500 transition">
+                    <input id="uEmail" type="email" placeholder="البريد الإلكتروني" class="w-full p-4 pl-12 border rounded-2xl outline-none focus:ring-2 focus:ring-green-500">
                 </div>
                 <div class="relative">
                     <i class="fa-solid fa-lock absolute left-4 top-4 text-gray-400"></i>
-                    <input id="userPass" type="password" placeholder="كلمة المرور" class="w-full p-4 pl-12 border rounded-2xl outline-none focus:ring-2 focus:ring-green-500 transition">
+                    <input id="uPass" type="password" placeholder="كلمة المرور" class="w-full p-4 pl-12 border rounded-2xl outline-none focus:ring-2 focus:ring-green-500">
                 </div>
-                <button onclick="handleSendOTP()" class="w-full bg-black text-white p-5 rounded-2xl font-black text-lg shadow-lg hover:scale-95 transition-transform">إنشاء حسابي مجاناً</button>
+                <button onclick="sendOTP()" class="w-full bg-black text-white p-5 rounded-2xl font-black text-lg shadow-lg hover:bg-gray-800 transition">إرسال كود التحقق</button>
             </div>
 
             <div id="otpSection" class="hidden space-y-6 text-center">
-                <div class="bg-green-50 p-4 rounded-xl text-green-700 font-bold text-sm">أرسلنا كود التحقق لبريدك الإلكتروني</div>
-                <input id="otpInput" type="text" maxlength="6" placeholder="000000" class="w-full p-4 text-center text-3xl font-black tracking-widest border rounded-2xl">
-                <button onclick="handleVerifyOTP()" class="w-full bg-green-600 text-white p-5 rounded-2xl font-black text-lg shadow-lg">تأكيد وتفعيل الحساب</button>
+                <p class="font-bold text-gray-700 text-sm italic">أدخل الكود الذي استلمته في بريدك:</p>
+                <input id="otpIn" type="text" maxlength="6" placeholder="000000" class="w-full p-4 text-center text-3xl font-black tracking-widest border rounded-2xl outline-none border-green-500">
+                <button onclick="verifyOTP()" class="w-full bg-green-600 text-white p-5 rounded-2xl font-black text-lg shadow-lg">تأكيد الحساب</button>
             </div>
         </div>
 
@@ -61,53 +60,50 @@
             <div class="glass p-5 text-center">
                 <i class="fa-solid fa-bolt text-yellow-500 text-2xl mb-1"></i>
                 <h3 class="font-black text-xl">1 ثانية</h3>
-                <p class="text-xs text-gray-500 font-bold">سرعة البرق</p>
+                <p class="text-xs text-gray-500 font-bold">سرعة التنفيذ</p>
             </div>
         </div>
     </div>
 
     <script>
-        // تفعيل الحساب فورياً عند التحميل
+        // تفعيل الربط مع حسابك في EmailJS
         (function() {
             emailjs.init({ publicKey: "jKcfVtOrO41wNIxeK" });
         })();
 
-        let currentOTP = "";
+        let codeSystem = "";
 
-        function handleSendOTP() {
-            const name = document.getElementById('userName').value;
-            const email = document.getElementById('userEmail').value;
-            const pass = document.getElementById('userPass').value;
-            
-            if(!name || !email || !pass) {
-                alert("عافاك عمر جميع المعلومات!");
-                return;
-            }
+        function sendOTP() {
+            const name = document.getElementById('uName').value;
+            const email = document.getElementById('uEmail').value;
+            const pass = document.getElementById('uPass').value;
+
+            if(!name || !email || !pass) return alert("المرجو ملء جميع المعلومات!");
 
             const code = Math.floor(100000 + Math.random() * 900000);
-            currentOTP = code.toString();
+            codeSystem = code.toString();
 
-            // إرسال الكود باستخدام إعداداتك الصحيحة
+            // إرسال البيانات لقالب EmailJS
             emailjs.send("service_dk24ksf", "template_14tc2a8", {
                 name: name,
                 otp_code: code,
                 email: email
             }).then(() => {
-                alert("كود التحقق وصل لإيميلك!");
-                document.getElementById('registerForm').classList.add('hidden');
+                alert("تم إرسال كود التحقق بنجاح!");
+                document.getElementById('regForm').classList.add('hidden');
                 document.getElementById('otpSection').classList.remove('hidden');
             }).catch((err) => {
-                alert("خطأ في الربط: " + err.text);
+                alert("خطأ تقني: " + err.text);
             });
         }
 
-        function handleVerifyOTP() {
-            const enteredCode = document.getElementById('otpInput').value;
-            if(enteredCode === currentOTP) {
-                alert("تم التفعيل بنجاح! مرحباً بك في ServeMaroc");
+        function verifyOTP() {
+            const val = document.getElementById('otpIn').value;
+            if(val === codeSystem) {
+                alert("تم تفعيل حسابك بنجاح!");
                 window.location.href = "home.html";
             } else {
-                alert("الكود غير صحيح، عاود المحاولة.");
+                alert("الكود خاطئ، حاول مرة أخرى.");
             }
         }
     </script>
