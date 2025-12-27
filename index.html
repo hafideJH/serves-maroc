@@ -3,78 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ServeMaroc | المنصة رقم 1</title>
+    <title>ServeMaroc | خدمات الميديا رقم 1 بالمغرب</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .hero-bg {
-            background: linear-gradient(135deg, #fef08a 0%, #86efac 100%); /* ألوان مشابهة للصورة 12733 */
-        }
-        .whatsapp-float {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background-color: #25d366;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            z-index: 1000;
-        }
+        .hero-gradient { background: linear-gradient(135deg, #fef08a 0%, #86efac 100%); }
+        .card-hover:hover { transform: translateY(-5px); transition: 0.3s; }
     </style>
 </head>
 <body class="bg-gray-50 font-sans text-right">
 
-    <header class="bg-white shadow-sm p-4 flex justify-between items-center">
-        <div class="flex items-center gap-4">
-            <h1 class="text-2xl font-bold text-red-600">Serve<span class="text-green-600">Maroc</span></h1>
-        </div>
-        <div class="text-sm font-bold">
-            <i class="fa-solid fa-phone text-blue-600"></i> +212 6XXXXXXXX
+    <header class="bg-white shadow-sm p-4 sticky top-0 z-50 flex justify-between items-center">
+        <h1 class="text-2xl font-black text-gray-800">Serve<span class="text-green-600">Maroc</span></h1>
+        <div class="hidden md:block text-sm font-bold bg-green-50 px-3 py-1 rounded-full border border-green-200">
+            <i class="fa-solid fa-phone text-green-600"></i> +212 6XXXXXXXX
         </div>
     </header>
 
-    <section class="hero-bg py-12 px-6 flex flex-col items-center">
-        <div class="max-w-4xl w-full text-center">
-            <h2 class="text-3xl font-black mb-4">المنصة #1 مغربياً لخدمات التسويق الإلكتروني</h2>
-            <p class="mb-6 text-gray-700">جميع خدمات التواصل الاجتماعي في مكان واحد بأفضل الأسعار.</p>
+    <section class="hero-gradient py-12 px-6 flex flex-col items-center">
+        <div class="max-w-4xl text-center">
+            <h2 class="text-3xl md:text-5xl font-black mb-4">المنصة #1 عربياً لخدمات التسويق الإلكتروني</h2>
+            <p class="text-gray-700 mb-8">جميع خدمات التواصل الاجتماعي (فولو، إعجاب، ليفي) في مكان واحد.</p>
             
-            <div class="bg-white p-6 rounded-2xl shadow-xl max-w-sm mx-auto">
-                <div class="mb-4">
-                    <input type="text" placeholder="اسم المستخدم" class="w-full p-3 border rounded-lg bg-yellow-50 focus:outline-yellow-400 text-right">
-                </div>
-                <div class="mb-4">
-                    <input type="password" placeholder="كلمة المرور" class="w-full p-3 border rounded-lg bg-yellow-50 focus:outline-yellow-400 text-right">
-                </div>
-                <button class="w-full bg-black text-white p-3 rounded-lg font-bold hover:bg-gray-800 transition">تسجيل الدخول</button>
-                <p class="mt-4 text-sm">ليس لديك حساب؟ <a href="#" class="text-blue-600 font-bold underline">سجل الآن</a></p>
+            <div class="bg-white p-6 rounded-2xl shadow-2xl max-w-sm mx-auto border-t-4 border-yellow-400">
+                <input type="text" placeholder="اسم المستخدم" class="w-full p-3 mb-3 border rounded-lg bg-gray-50 text-right focus:ring-2 focus:ring-yellow-400 outline-none">
+                <input type="password" placeholder="كلمة المرور" class="w-full p-3 mb-4 border rounded-lg bg-gray-50 text-right focus:ring-2 focus:ring-yellow-400 outline-none">
+                <button class="w-full bg-black text-white p-3 rounded-lg font-bold hover:bg-gray-800 shadow-lg">تسجيل الدخول <i class="fa-solid fa-arrow-left mr-2"></i></button>
+                <p class="mt-4 text-xs">ليس لديك حساب؟ <a href="#" class="text-blue-600 underline">سجل الآن</a></p>
             </div>
         </div>
     </section>
 
-    <section class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="bg-white p-4 rounded-xl shadow border text-center">
-            <div class="bg-blue-100 p-8 rounded-lg mb-4">
-                <i class="fa-brands fa-instagram text-5xl text-pink-600 font-bold"></i>
+    <section class="max-w-6xl mx-auto py-12 px-4">
+        <h3 class="text-2xl font-bold mb-8 border-r-4 border-green-500 pr-3">أفضل الخدمات مبيعاً (Best Sellers)</h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white p-5 rounded-2xl shadow border card-hover">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="bg-red-500 text-white text-[10px] px-2 py-1 rounded font-bold">SALE!</span>
+                    <i class="fa-brands fa-instagram text-4xl text-pink-600"></i>
+                </div>
+                <h4 class="font-bold text-lg">1000 إنستغرام فولو (ثابت)</h4>
+                <p class="text-gray-500 text-sm mt-1">ضمان 30 يوم - سرعة البرق.</p>
+                <div class="mt-6 flex justify-between items-center">
+                    <span class="text-xl font-black text-red-600">45.00 MAD</span>
+                    <button class="border-2 border-black px-4 py-1 rounded-full text-xs font-bold uppercase hover:bg-black hover:text-white">Add to Cart</button>
+                </div>
             </div>
-            <h3 class="font-bold">1000 متابع إنستقرام حقيقي</h3>
-            <p class="text-red-600 font-bold mt-2">MAD 45.00</p>
-            <button class="mt-4 w-full border-2 border-black py-2 rounded-full font-bold uppercase text-xs">Add to Cart</button>
-        </div>
 
-        <div class="bg-white p-4 rounded-xl shadow border text-center">
-            <div class="bg-purple-100 p-8 rounded-lg mb-4 text-purple-600 font-black text-2xl">IPTV</div>
-            <h3 class="font-bold">IPTV 12 Month 4K UHD</h3>
-            <p class="text-red-600 font-bold mt-2 text-lg">MAD 250.00</p>
-            <button class="mt-4 w-full border-2 border-black py-2 rounded-full font-bold uppercase text-xs">Add to Cart</button>
+            <div class="bg-white p-5 rounded-2xl shadow border card-hover">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="bg-yellow-400 text-black text-[10px] px-2 py-1 rounded font-bold">HOT!</span>
+                    <i class="fa-brands fa-tiktok text-4xl text-black"></i>
+                </div>
+                <h4 class="font-bold text-lg">10k تيك توك ليفي (Views)</h4>
+                <p class="text-gray-500 text-sm mt-1">زيادة فورية ومشاهدات حقيقية.</p>
+                <div class="mt-6 flex justify-between items-center">
+                    <span class="text-xl font-black text-red-600">20.00 MAD</span>
+                    <button class="border-2 border-black px-4 py-1 rounded-full text-xs font-bold uppercase hover:bg-black hover:text-white">Add to Cart</button>
+                </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl shadow border card-hover">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="bg-green-500 text-white text-[10px] px-2 py-1 rounded font-bold">NEW</span>
+                    <i class="fa-brands fa-youtube text-4xl text-red-600"></i>
+                </div>
+                <h4 class="font-bold text-lg">1000 يوتيوب إعجاب (Likes)</h4>
+                <p class="text-gray-500 text-sm mt-1">تفاعل آمن وحسابات قديمة.</p>
+                <div class="mt-6 flex justify-between items-center">
+                    <span class="text-xl font-black text-red-600">35.00 MAD</span>
+                    <button class="border-2 border-black px-4 py-1 rounded-full text-xs font-bold uppercase hover:bg-black hover:text-white">Add to Cart</button>
+                </div>
+            </div>
         </div>
     </section>
 
-    <a href="https://wa.me/2126XXXXXXXX" class="whatsapp-float shadow-lg">
+    <a href="https://wa.me/2126XXXXXXXX" class="fixed bottom-6 left-6 bg-green-500 text-white p-4 rounded-full shadow-2xl flex items-center gap-2 hover:bg-green-600 transition z-50">
         <i class="fa-brands fa-whatsapp text-2xl"></i>
-        <span class="font-bold text-sm">Contact us</span>
+        <span class="font-bold">Contact us</span>
     </a>
 
 </body>
