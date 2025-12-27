@@ -10,7 +10,6 @@
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
         body { font-family: 'Cairo', sans-serif; }
         
-        /* الخلفية المتدرجة الأصلية من صورك */
         .hero-gradient {
             background: linear-gradient(180deg, #fef08a 0%, #dcfce7 60%, #86efac 100%);
             min-height: 100vh;
@@ -22,16 +21,20 @@
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.4);
         }
+
+        /* تنسيق التبديل بين الدخول والتسجيل */
+        .form-content { display: none; }
+        .form-content.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .tab-btn.active { border-bottom: 4px solid #16a34a; color: #16a34a; font-weight: 900; }
     </style>
 </head>
 <body class="bg-gray-50">
 
     <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 p-5 shadow-sm flex justify-between items-center px-10">
-        <div class="text-3xl font-black tracking-tighter uppercase">SERVE<span class="text-green-600">MAROC</span></div>
-        <div class="flex gap-4">
-            <button class="bg-black text-white px-8 py-3 rounded-2xl font-black text-sm shadow-xl hover:bg-gray-800 transition">سجل الآن</button>
-            <a href="https://wa.me/212XXXXXXXXX" class="text-green-500 text-3xl self-center"><i class="fa-brands fa-whatsapp"></i></a>
-        </div>
+        <div class="text-3xl font-black tracking-tighter uppercase text-gray-800">SERVE<span class="text-green-600">MAROC</span></div>
+        <a href="https://wa.me/212XXXXXXXXX" class="text-green-500 text-3xl"><i class="fa-brands fa-whatsapp"></i></a>
     </nav>
 
     <section class="hero-gradient px-6 text-center pt-16">
@@ -42,10 +45,11 @@
 
         <div class="glass-panel p-10 max-w-lg mx-auto rounded-[40px] shadow-2xl border border-white/50 mb-16">
             <div class="flex mb-8 border-b border-gray-100">
-                <button class="w-1/2 pb-4 font-black text-xl border-b-4 border-green-600 text-green-600 uppercase italic">تسجيل الدخول</button>
-                <button class="w-1/2 pb-4 font-bold text-gray-400 text-xl italic">إنشاء حساب</button>
+                <button id="loginTab" onclick="showForm('login')" class="tab-btn active w-1/2 pb-4 font-bold text-xl italic transition-all">تسجيل الدخول</button>
+                <button id="registerTab" onclick="showForm('register')" class="tab-btn w-1/2 pb-4 font-bold text-gray-400 text-xl italic transition-all">إنشاء حساب</button>
             </div>
-            <div class="space-y-6 text-right">
+
+            <div id="loginForm" class="form-content active space-y-6 text-right">
                 <div class="relative">
                     <i class="fa fa-user absolute right-4 top-5 text-gray-400"></i>
                     <input type="text" placeholder="اسم المستخدم" class="w-full p-5 pr-12 bg-gray-50/50 border rounded-2xl outline-none focus:ring-2 focus:ring-green-400 font-bold">
@@ -55,21 +59,32 @@
                     <input type="password" placeholder="كلمة المرور" class="w-full p-5 pr-12 bg-gray-50/50 border rounded-2xl outline-none focus:ring-2 focus:ring-green-400 font-bold">
                 </div>
                 <button class="w-full bg-green-600 text-white p-6 rounded-2xl font-black text-xl shadow-lg hover:bg-green-700 transition flex justify-center items-center gap-2">
-                    دخول آمن للمنصة <i class="fa-solid fa-right-to-bracket"></i>
+                    دخول آمن <i class="fa-solid fa-right-to-bracket"></i>
                 </button>
                 <a href="#" class="block text-center text-sm text-blue-500 font-bold mt-2 italic underline">نسيت كلمة المرور؟</a>
+            </div>
+
+            <div id="registerForm" class="form-content space-y-4 text-right">
+                <div class="grid grid-cols-2 gap-3">
+                    <input type="text" placeholder="الاسم" class="w-full p-4 bg-gray-50/50 border rounded-2xl outline-none focus:ring-2 focus:ring-green-400 font-bold">
+                    <input type="text" placeholder="النسب" class="w-full p-4 bg-gray-50/50 border rounded-2xl outline-none focus:ring-2 focus:ring-green-400 font-bold">
+                </div>
+                <input type="email" placeholder="البريد الإلكتروني" class="w-full p-4 bg-gray-50/50 border rounded-2xl outline-none focus:ring-2 focus:ring-green-400 font-bold">
+                <input type="text" placeholder="اسم المستخدم" class="w-full p-4 bg-gray-50/50 border rounded-2xl outline-none focus:ring-2 focus:ring-green-400 font-bold">
+                <input type="password" placeholder="كلمة المرور" class="w-full p-4 bg-gray-50/50 border rounded-2xl outline-none focus:ring-2 focus:ring-green-400 font-bold">
+                <button class="w-full bg-black text-white p-5 rounded-2xl font-black text-xl shadow-lg hover:bg-gray-800 transition">إنشاء حساب جديد</button>
             </div>
         </div>
 
         <div class="max-w-4xl mx-auto grid grid-cols-2 gap-6 px-4">
-            <div class="bg-white p-8 rounded-[35px] shadow-xl text-center border-b-8 border-yellow-400 hover:scale-105 transition">
+            <div class="bg-white p-8 rounded-[35px] shadow-xl text-center border-b-8 border-yellow-400">
                 <i class="fa-solid fa-bolt text-4xl text-yellow-400 mb-4"></i>
-                <div class="text-3xl font-black italic text-gray-800">1 ثانية</div>
+                <div class="text-3xl font-black italic">1 ثانية</div>
                 <p class="text-gray-400 text-sm font-bold mt-1">سرعة تنفيذ الطلب</p>
             </div>
-            <div class="bg-white p-8 rounded-[35px] shadow-xl text-center border-b-8 border-green-500 hover:scale-105 transition">
+            <div class="bg-white p-8 rounded-[35px] shadow-xl text-center border-b-8 border-green-500">
                 <i class="fa-solid fa-users text-4xl text-green-500 mb-4"></i>
-                <div class="text-3xl font-black italic text-gray-800">+250k</div>
+                <div class="text-3xl font-black italic">+250k</div>
                 <p class="text-gray-400 text-sm font-bold mt-1">عميل نشط</p>
             </div>
         </div>
@@ -80,5 +95,27 @@
         <p class="text-gray-500 font-bold italic">حقوق الطبع والنشر © 2025 لـ ServeMaroc</p>
     </footer>
 
+    <script>
+        function showForm(type) {
+            // إخفاء كل الفورمات
+            document.getElementById('loginForm').classList.remove('active');
+            document.getElementById('registerForm').classList.remove('active');
+            // إزالة نشاط الأزرار
+            document.getElementById('loginTab').classList.remove('active');
+            document.getElementById('registerTab').classList.remove('active');
+            document.getElementById('loginTab').classList.add('text-gray-400');
+            document.getElementById('registerTab').classList.add('text-gray-400');
+
+            if(type === 'login') {
+                document.getElementById('loginForm').classList.add('active');
+                document.getElementById('loginTab').classList.add('active');
+                document.getElementById('loginTab').classList.remove('text-gray-400');
+            } else {
+                document.getElementById('registerForm').classList.add('active');
+                document.getElementById('registerTab').classList.add('active');
+                document.getElementById('registerTab').classList.remove('text-gray-400');
+            }
+        }
+    </script>
 </body>
 </html>
