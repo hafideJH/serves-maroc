@@ -20,12 +20,12 @@
 </head>
 <body class="hero-gradient px-6 pt-10 pb-20">
     <div class="text-center mb-8">
-        <h1 class="text-4xl font-black text-green-700 tracking-tighter">SERVE<span class="text-black/80">MAROC</span></h1>
+        <h1 class="text-4xl font-black text-green-700">SERVE<span class="text-black/80">MAROC</span></h1>
         <p class="text-gray-600 font-bold mt-1 italic">المنصة رقم #1 لنمو السوشيال ميديا</p>
     </div>
 
     <div class="glass-panel p-8 max-w-lg mx-auto rounded-[35px] shadow-2xl">
-        <div id="authTabs" class="flex mb-8 border-b border-gray-100">
+        <div class="flex mb-8 border-b border-gray-100">
             <button class="w-1/2 pb-4 font-bold text-lg text-gray-400">تسجيل الدخول</button>
             <button class="w-1/2 pb-4 font-black text-lg border-b-4 border-green-600 text-green-600">إنشاء حساب</button>
         </div>
@@ -43,7 +43,7 @@
                 <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
                 <input id="regPass" type="password" placeholder="كلمة المرور" class="w-full p-4 pl-12 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold">
             </div>
-            <button onclick="sendOTP()" class="w-full bg-black text-white p-5 rounded-2xl font-black text-lg shadow-xl hover:scale-[1.02] transition-transform">إرسال كود التحقق</button>
+            <button onclick="sendOTP()" class="w-full bg-black text-white p-5 rounded-2xl font-black text-lg shadow-xl">إرسال كود التحقق</button>
         </div>
 
         <div id="otpForm" class="form-content space-y-6 text-center">
@@ -61,11 +61,7 @@
     </div>
 
     <script>
-        (function() {
-            // المفتاح العام الصحيح من صورتك
-            emailjs.init({ publicKey: "jKcfVtOrO41wNIxeK" });
-        })();
-
+        // تفعيل الحساب باستخدام الطريقة المباشرة لتجنب خطأ 404
         function sendOTP() {
             const name = document.getElementById('regUser').value;
             const email = document.getElementById('regEmail').value;
@@ -73,22 +69,20 @@
 
             if(!name || !email) return alert("المرجو ملء البيانات");
 
-            const templateParams = {
+            // تم إدراج Public Key مباشرة داخل دالة الإرسال لضمان التعرف على الحساب
+            emailjs.send("service_dk24ksf", "template_14tc2a8", {
                 name: name,
                 otp_code: code,
-                email: email // سيتم الإرسال لهذا البريد حسب إعدادات To Email: {{email}}
-            };
-
-            emailjs.send("service_dk24ksf", "template_14tc2a8", templateParams)
-                .then(() => {
-                    window.storedOTP = code;
-                    alert("تم إرسال كود التحقق بنجاح إلى بريدك");
-                    document.getElementById('registerForm').classList.remove('active');
-                    document.getElementById('otpForm').classList.add('active');
-                }, (error) => {
-                    console.error('FAILED...', error);
-                    alert("خطأ في الإرسال: " + JSON.stringify(error));
-                });
+                email: email
+            }, "jKcfVtOrO41wNIxeK") 
+            .then(() => {
+                window.storedOTP = code;
+                alert("تم إرسال كود التحقق بنجاح");
+                document.getElementById('registerForm').classList.remove('active');
+                document.getElementById('otpForm').classList.add('active');
+            }, (err) => {
+                alert("فشل الإرسال: تأكد من مفتاح Public Key في إعدادات EmailJS Account");
+            });
         }
 
         function verifyOTP() {
