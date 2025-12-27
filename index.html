@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServeMaroc | المنصة رقم 1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .hero-bg {
+            background: linear-gradient(135deg, #fef08a 0%, #86efac 100%); /* ألوان مشابهة للصورة 12733 */
+        }
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #25d366;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-right">
+
+    <header class="bg-white shadow-sm p-4 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <h1 class="text-2xl font-bold text-red-600">Serve<span class="text-green-600">Maroc</span></h1>
+        </div>
+        <div class="text-sm font-bold">
+            <i class="fa-solid fa-phone text-blue-600"></i> +212 6XXXXXXXX
+        </div>
+    </header>
+
+    <section class="hero-bg py-12 px-6 flex flex-col items-center">
+        <div class="max-w-4xl w-full text-center">
+            <h2 class="text-3xl font-black mb-4">المنصة #1 مغربياً لخدمات التسويق الإلكتروني</h2>
+            <p class="mb-6 text-gray-700">جميع خدمات التواصل الاجتماعي في مكان واحد بأفضل الأسعار.</p>
+            
+            <div class="bg-white p-6 rounded-2xl shadow-xl max-w-sm mx-auto">
+                <div class="mb-4">
+                    <input type="text" placeholder="اسم المستخدم" class="w-full p-3 border rounded-lg bg-yellow-50 focus:outline-yellow-400 text-right">
+                </div>
+                <div class="mb-4">
+                    <input type="password" placeholder="كلمة المرور" class="w-full p-3 border rounded-lg bg-yellow-50 focus:outline-yellow-400 text-right">
+                </div>
+                <button class="w-full bg-black text-white p-3 rounded-lg font-bold hover:bg-gray-800 transition">تسجيل الدخول</button>
+                <p class="mt-4 text-sm">ليس لديك حساب؟ <a href="#" class="text-blue-600 font-bold underline">سجل الآن</a></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white p-4 rounded-xl shadow border text-center">
+            <div class="bg-blue-100 p-8 rounded-lg mb-4">
+                <i class="fa-brands fa-instagram text-5xl text-pink-600 font-bold"></i>
+            </div>
+            <h3 class="font-bold">1000 متابع إنستقرام حقيقي</h3>
+            <p class="text-red-600 font-bold mt-2">MAD 45.00</p>
+            <button class="mt-4 w-full border-2 border-black py-2 rounded-full font-bold uppercase text-xs">Add to Cart</button>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl shadow border text-center">
+            <div class="bg-purple-100 p-8 rounded-lg mb-4 text-purple-600 font-black text-2xl">IPTV</div>
+            <h3 class="font-bold">IPTV 12 Month 4K UHD</h3>
+            <p class="text-red-600 font-bold mt-2 text-lg">MAD 250.00</p>
+            <button class="mt-4 w-full border-2 border-black py-2 rounded-full font-bold uppercase text-xs">Add to Cart</button>
+        </div>
+    </section>
+
+    <a href="https://wa.me/2126XXXXXXXX" class="whatsapp-float shadow-lg">
+        <i class="fa-brands fa-whatsapp text-2xl"></i>
+        <span class="font-bold text-sm">Contact us</span>
+    </a>
+
+</body>
+</html>
