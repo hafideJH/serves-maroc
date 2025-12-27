@@ -45,7 +45,7 @@
         </div>
 
         <div id="otpForm" class="form-content space-y-6 text-center">
-            <h3 class="font-black">أدخل الرمز المرسل</h3>
+            <h3 class="font-black text-gray-800">أدخل الرمز المرسل</h3>
             <div class="flex justify-center gap-1" dir="ltr">
                 <input type="text" maxlength="1" class="otp-input" oninput="move(this, 'i2')" id="i1">
                 <input type="text" maxlength="1" class="otp-input" oninput="move(this, 'i3')" id="i2">
@@ -54,13 +54,16 @@
                 <input type="text" maxlength="1" class="otp-input" oninput="move(this, 'i6')" id="i5">
                 <input type="text" maxlength="1" class="otp-input" id="i6">
             </div>
-            <button onclick="verifyOTP()" class="w-full bg-black text-white p-4 rounded-2xl font-black">تأكيد</button>
+            <button onclick="verifyOTP()" class="w-full bg-black text-white p-4 rounded-2xl font-black">تأكيد التفعيل</button>
         </div>
     </div>
 
     <script>
-        emailjs.init("WRpj_ZtTQw-eHAZDQ");
+        // تفعيل EmailJS بالمعلومات من الصور
+        emailjs.init("WRpj_ZtTQw-eHAZDQ"); 
+
         let generatedOTP = "";
+        let tempUser = {}; // لتخزين البيانات مؤقتاً قبل التحقق
 
         function switchTab(tab) {
             document.getElementById('loginForm').classList.toggle('active', tab === 'login');
@@ -81,22 +84,31 @@
 
             if(!name || !email || !pass) return alert("عمر الخانات كاملة!");
 
-            // الحفظ الفوري في الذاكرة (قبل الإرسال لضمان بقاء البيانات)
+            // التحقق إذا كان الإيميل مسجل مسبقاً في الذاكرة
             let users = JSON.parse(localStorage.getItem('serve_users') || "[]");
-            if (users.find(u => u.email === email)) return alert("هذا الإيميل مستخدم!");
+            if (users.find(u => u.email === email)) return alert("هذا الإيميل مسجل مسبقاً!");
+
+            // تخزين البيانات مؤقتاً
+            tempUser = { name, email, pass };
 
             generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
             
             document.getElementById('sendBtn').innerText = "جاري الإرسال...";
+            document.getElementById('sendBtn').disabled = true;
 
+            // استخدام Service ID و Template ID من الصور
             emailjs.send("service_dk24ksf", "template_14tc2a8", {
                 name: name,
                 email: email,
                 otp_code: generatedOTP
             }).then(() => {
-                alert("تم الإرسال!");
+                alert("تم إرسال كود التحقق لـ Gmail!");
                 document.getElementById('registerForm').classList.remove('active');
                 document.getElementById('otpForm').classList.add('active');
+            }).catch((err) => {
+                alert("فشل في الإرسال: " + JSON.stringify(err));
+                document.getElementById('sendBtn').innerText = "إعادة المحاولة";
+                document.getElementById('sendBtn').disabled = false;
             });
         }
 
@@ -105,32 +117,33 @@
             for(let i=1; i<=6; i++) typed += document.getElementById('i'+i).value;
             
             if(typed === generatedOTP) {
-                // الحفظ النهائي
+                // حفظ الحساب بشكل نهائي في الذاكرة المحلية
                 let users = JSON.parse(localStorage.getItem('serve_users') || "[]");
-                users.push({
-                    name: document.getElementById('uName').value,
-                    email: document.getElementById('uEmail').value,
-                    pass: document.getElementById('uPass').value
-                });
+                users.push(tempUser);
                 localStorage.setItem('serve_users', JSON.stringify(users));
                 
-                alert("تم التفعيل!");
+                alert("تم إنشاء الحساب وتفعيله بنجاح!");
                 window.location.href = "./w/";
             } else {
-                alert("الكود غلط!");
+                alert("الكود غير صحيح!");
             }
         }
 
+        // دالة تسجيل الدخول المصلحة
         function handleLogin() {
             const email = document.getElementById('loginEmail').value;
             const pass = document.getElementById('loginPass').value;
-            
-            // قراءة البيانات من المتصفح
+
+            if(!email || !pass) return alert("المرجو إدخال الإيميل وكلمة المرور!");
+
+            // جلب قائمة المستخدمين من الذاكرة
             let users = JSON.parse(localStorage.getItem('serve_users') || "[]");
+            
+            // البحث عن مستخدم يطابق الإيميل وكلمة المرور
             const user = users.find(u => u.email === email && u.pass === pass);
             
             if (user) {
-                alert("مرحباً بك " + user.name);
+                alert("مرحباً بك مجدداً " + user.name);
                 window.location.href = "./w/";
             } else {
                 alert("خطأ! تأكد من الإيميل أو أنك مسجل أصلاً.");
