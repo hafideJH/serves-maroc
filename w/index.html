@@ -1,1 +1,108 @@
-jddhdy
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServeMaroc | الدخول والتحقق</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
+        body { font-family: 'Cairo', sans-serif; }
+        .hero-gradient { background: linear-gradient(180deg, #fef08a 0%, #dcfce7 60%, #86efac 100%); min-height: 100vh; }
+        .glass-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.4); }
+        .form-content { display: none; }
+        .form-content.active { display: block; animation: fadeIn 0.4s ease; }
+        .otp-input { width: 45px; height: 55px; text-align: center; font-size: 1.5rem; font-weight: bold; border: 2px solid #e5e7eb; border-radius: 12px; }
+        .tab-btn.active { border-bottom: 4px solid #16a34a; color: #16a34a; font-weight: 900; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="hero-gradient px-6 pt-10 pb-20">
+    <div class="text-center mb-8">
+        <h1 class="text-4xl font-black text-green-700 tracking-tighter">SERVE<span class="text-black/80">MAROC</span></h1>
+        <p class="text-gray-600 font-bold mt-1 italic">المنصة رقم #1 لنمو السوشيال ميديا</p>
+    </div>
+
+    <div class="glass-panel p-8 max-w-lg mx-auto rounded-[35px] shadow-2xl">
+        <div class="flex mb-8 border-b border-gray-100">
+            <button id="loginTab" onclick="switchTab('login')" class="tab-btn w-1/2 pb-4 font-bold text-lg text-gray-400">تسجيل الدخول</button>
+            <button id="regTab" onclick="switchTab('reg')" class="tab-btn w-1/2 pb-4 font-black text-lg active">إنشاء حساب</button>
+        </div>
+
+        <div id="loginForm" class="form-content space-y-4 text-right">
+            <input type="email" placeholder="البريد الإلكتروني" class="w-full p-4 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold">
+            <input type="password" placeholder="كلمة المرور" class="w-full p-4 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold">
+            <button class="w-full bg-black text-white p-5 rounded-2xl font-black text-lg">دخول</button>
+        </div>
+
+        <div id="registerForm" class="form-content active space-y-4 text-right">
+            <input id="uName" type="text" placeholder="اسم المستخدم" class="w-full p-4 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold">
+            <input id="uEmail" type="email" placeholder="البريد الإلكتروني" class="w-full p-4 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold">
+            <input id="uPass" type="password" placeholder="كلمة المرور" class="w-full p-4 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold">
+            <button id="sendBtn" onclick="sendOTP()" class="w-full bg-black text-white p-5 rounded-2xl font-black text-lg shadow-xl">إرسال كود التحقق</button>
+        </div>
+
+        <div id="otpForm" class="form-content space-y-6 text-center">
+            <h3 class="text-xl font-black text-gray-800">تحقق من إيميلك</h3>
+            <div class="flex justify-center gap-2" dir="ltr">
+                <input type="text" maxlength="1" class="otp-input" oninput="move(this, 'i2')" id="i1">
+                <input type="text" maxlength="1" class="otp-input" oninput="move(this, 'i3')" id="i2">
+                <input type="text" maxlength="1" class="otp-input" oninput="move(this, 'i4')" id="i3">
+                <input type="text" maxlength="1" class="otp-input" oninput="move(this, 'i5')" id="i4">
+                <input type="text" maxlength="1" class="otp-input" oninput="move(this, 'i6')" id="i5">
+                <input type="text" maxlength="1" class="otp-input" id="i6">
+            </div>
+            <button onclick="verifyOTP()" class="w-full bg-green-600 text-white p-5 rounded-2xl font-black text-lg shadow-lg">تأكيد الحساب</button>
+        </div>
+    </div>
+
+    <script>
+        emailjs.init("WRpj_ZtTQw-eHAZDQ");
+        let generatedOTP = "";
+
+        function switchTab(tab) {
+            document.getElementById('loginForm').classList.toggle('active', tab === 'login');
+            document.getElementById('registerForm').classList.toggle('active', tab === 'reg');
+            document.getElementById('loginTab').classList.toggle('active', tab === 'login');
+            document.getElementById('regTab').classList.toggle('active', tab === 'reg');
+        }
+
+        function move(el, nextId) {
+            if (el.value.length >= 1 && nextId) document.getElementById(nextId).focus();
+        }
+
+        function sendOTP() {
+            const name = document.getElementById('uName').value;
+            const email = document.getElementById('uEmail').value;
+            if(!name || !email) return alert("عمر المعلومات!");
+            
+            generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+            
+            emailjs.send("service_dk24ksf", "template_14tc2a8", {
+                name: name,
+                email: email,
+                otp_code: generatedOTP
+            }).then(() => {
+                alert("تم الإرسال!");
+                document.getElementById('registerForm').classList.remove('active');
+                document.getElementById('otpForm').classList.add('active');
+            });
+        }
+
+        function verifyOTP() {
+            let typed = "";
+            for(let i=1; i<=6; i++) typed += document.getElementById('i'+i).value;
+            
+            if(typed === generatedOTP) {
+                alert("تم التحقق! جاري التوجيه...");
+                // التوجيه للرابط النظيف /w/
+                window.location.href = "./w/"; 
+            } else {
+                alert("الكود غلط!");
+            }
+        }
+    </script>
+</body>
+</html>
