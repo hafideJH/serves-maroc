@@ -1,100 +1,33 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ServeMaroc | Premium UI</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        /* خلفية متدرجة فخمة */
-        body {
-            background: radial-gradient(circle at top right, #fef08a, transparent),
-                        radial-gradient(circle at bottom left, #86efac, transparent),
-                        #f9fafb;
-            min-height: 100vh;
-        }
-        .tab-content { display: none; }
-        .tab-content.active { display: grid; animation: fadeIn 0.5s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        /* تأثير الزجاج (Glassmorphism) */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-    </style>
-</head>
-<body class="p-4 md:p-8 text-right font-sans">
-
-    <div class="max-w-5xl mx-auto">
-        <div class="text-center mb-12">
-            <h1 class="text-5xl font-black text-gray-900 mb-2">SERVE<span class="text-green-600">MAROC</span></h1>
-            <p class="text-gray-600 font-bold">المنصة رقم #1 لخدمات الميديا والألعاب</p>
+<div id="insta" class="tab-content active flex flex-col gap-4 px-4">
+    
+    <div class="text-right font-bold text-gray-700 mt-4 mb-2 border-r-4 border-pink-500 pr-2">👥 متابعين (Followers)</div>
+    <div class="glass-card p-4 rounded-2xl shadow-lg flex justify-between items-center border-l-8 border-pink-500">
+        <button class="bg-pink-600 text-white px-4 py-2 rounded-xl font-bold text-sm shadow-md hover:scale-105 transition">+ Add</button>
+        <div class="text-right">
+            <h3 class="font-black text-gray-800">1000 متابع (فولو)</h3>
+            <p class="text-[10px] text-gray-500">سرعة عالية + ضمان 30 يوم</p>
+            <p class="text-lg font-black text-red-600">MAD 45</p>
         </div>
-
-        <div class="grid grid-cols-3 gap-4 mb-12">
-            <button onclick="openTab(event, 'insta')" class="tab-link glass-card p-6 rounded-3xl flex flex-col items-center gap-4 border-b-8 border-pink-500 hover:scale-105 transition active shadow-xl">
-                <i class="fa-brands fa-instagram text-6xl text-pink-600"></i>
-                <span class="font-black text-lg">INSTAGRAM</span>
-            </button>
-            <button onclick="openTab(event, 'tiktok')" class="tab-link glass-card p-6 rounded-3xl flex flex-col items-center gap-4 border-b-8 border-black hover:scale-105 transition shadow-md">
-                <i class="fa-brands fa-tiktok text-6xl text-black"></i>
-                <span class="font-black text-lg">TIKTOK</span>
-            </button>
-            <button onclick="openTab(event, 'yt')" class="tab-link glass-card p-6 rounded-3xl flex flex-col items-center gap-4 border-b-8 border-red-600 hover:scale-105 transition shadow-md">
-                <i class="fa-brands fa-youtube text-6xl text-red-600"></i>
-                <span class="font-black text-lg">YOUTUBE</span>
-            </button>
-        </div>
-
-        <div id="insta" class="tab-content active grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="glass-card p-6 rounded-2xl shadow-lg flex justify-between items-center border-r-8 border-pink-500">
-                <div>
-                    <h3 class="text-xl font-black">1000 متابع (فولو)</h3>
-                    <p class="text-gray-500 text-sm">سرعة عالية + ضمان 30 يوم</p>
-                    <p class="text-2xl font-black text-red-600 mt-2">45 MAD</p>
-                </div>
-                <button class="bg-pink-600 text-white p-4 rounded-xl font-bold shadow-lg hover:bg-pink-700">Add <i class="fa fa-plus"></i></button>
-            </div>
-            <div class="glass-card p-6 rounded-2xl shadow-lg flex justify-between items-center border-r-8 border-pink-500">
-                <div>
-                    <h3 class="text-xl font-black">5000 إعجاب (لايك)</h3>
-                    <p class="text-gray-500 text-sm">حسابات حقيقية ونشطة</p>
-                    <p class="text-2xl font-black text-red-600 mt-2">30 MAD</p>
-                </div>
-                <button class="bg-pink-600 text-white p-4 rounded-xl font-bold shadow-lg hover:bg-pink-700">Add <i class="fa fa-plus"></i></button>
-            </div>
-        </div>
-
-        <div id="tiktok" class="tab-content grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="glass-card p-6 rounded-2xl shadow-lg flex justify-between items-center border-r-8 border-black">
-                <div>
-                    <h3 class="text-xl font-black">10K ليفي (Views)</h3>
-                    <p class="text-gray-500 text-sm">إرسال فوري وتفاعل سريع</p>
-                    <p class="text-2xl font-black text-red-600 mt-2">20 MAD</p>
-                </div>
-                <button class="bg-black text-white p-4 rounded-xl font-bold shadow-lg hover:bg-gray-800">Add <i class="fa fa-plus"></i></button>
-            </div>
-        </div>
-
     </div>
 
-    <script>
-        function openTab(evt, tabName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = "none"; }
-            tablinks = document.getElementsByClassName("tab-link");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("shadow-xl", "scale-105");
-                tablinks[i].classList.add("shadow-md");
-            }
-            document.getElementById(tabName).style.display = "grid";
-            evt.currentTarget.classList.add("shadow-xl", "scale-105");
-            evt.currentTarget.classList.remove("shadow-md");
-        }
-    </script>
-</body>
-</html>
+    <div class="text-right font-bold text-gray-700 mt-4 mb-2 border-r-4 border-pink-500 pr-2">❤️ إعجاب (Likes)</div>
+    <div class="glass-card p-4 rounded-2xl shadow-lg flex justify-between items-center border-l-8 border-pink-500">
+        <button class="bg-pink-600 text-white px-4 py-2 rounded-xl font-bold text-sm shadow-md hover:scale-105 transition">+ Add</button>
+        <div class="text-right">
+            <h3 class="font-black text-gray-800">5000 إعجاب (لايك)</h3>
+            <p class="text-[10px] text-gray-500">حسابات حقيقية ونشطة</p>
+            <p class="text-lg font-black text-red-600">MAD 30</p>
+        </div>
+    </div>
+
+    <div class="text-right font-bold text-gray-700 mt-4 mb-2 border-r-4 border-pink-500 pr-2">👁️ ليفي (Views)</div>
+    <div class="glass-card p-4 rounded-2xl shadow-lg flex justify-between items-center border-l-8 border-pink-500">
+        <button class="bg-pink-600 text-white px-4 py-2 rounded-xl font-bold text-sm shadow-md hover:scale-105 transition">+ Add</button>
+        <div class="text-right">
+            <h3 class="font-black text-gray-800">10k مشاهدة (ليفي)</h3>
+            <p class="text-[10px] text-gray-500">إرسال فوري عالي الجودة</p>
+            <p class="text-lg font-black text-red-600">MAD 15</p>
+        </div>
+    </div>
+
+</div>
