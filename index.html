@@ -9,12 +9,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
-        body { font-family: 'Cairo', sans-serif; background-color: #f9fafb; }
+        body { font-family: 'Cairo', sans-serif; }
         .hero-gradient { background: linear-gradient(180deg, #fef08a 0%, #dcfce7 60%, #86efac 100%); min-height: 100vh; }
         .glass-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.4); }
         .form-content { display: none; }
         .form-content.active { display: block; animation: fadeIn 0.4s ease; }
-        .otp-input { width: 40px; height: 50px; text-align: center; font-size: 1.2rem; font-weight: bold; border: 2px solid #e5e7eb; border-radius: 10px; }
+        .otp-input { width: 42px; height: 52px; text-align: center; font-size: 1.3rem; font-weight: bold; border: 2px solid #e5e7eb; border-radius: 12px; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
@@ -33,33 +33,33 @@
         <div id="loginForm" class="form-content space-y-4 text-right">
             <div class="relative">
                 <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                <input type="email" placeholder="البريد الإلكتروني" class="w-full p-4 pl-12 bg-gray-50 border border-gray-200 rounded-2xl outline-none font-bold focus:border-green-500">
+                <input type="email" placeholder="البريد الإلكتروني" class="w-full p-4 pl-12 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold focus:border-green-500">
             </div>
             <div class="relative">
                 <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                <input type="password" placeholder="كلمة المرور" class="w-full p-4 pl-12 bg-gray-50 border border-gray-200 rounded-2xl outline-none font-bold focus:border-green-500">
+                <input type="password" placeholder="كلمة المرور" class="w-full p-4 pl-12 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold focus:border-green-500">
             </div>
-            <button class="w-full bg-black text-white p-5 rounded-2xl font-black text-lg shadow-xl">دخول</button>
+            <button class="w-full bg-black text-white p-5 rounded-2xl font-black text-lg shadow-xl hover:bg-gray-900 transition">دخول</button>
         </div>
 
         <div id="registerForm" class="form-content active space-y-4 text-right">
             <div class="relative">
                 <i class="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                <input id="regUser" type="text" placeholder="اسم المستخدم" class="w-full p-4 pl-12 bg-gray-50 border border-gray-200 rounded-2xl outline-none font-bold focus:border-green-500">
+                <input id="regUser" type="text" placeholder="اسم المستخدم" class="w-full p-4 pl-12 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold focus:border-green-500">
             </div>
             <div class="relative">
                 <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                <input id="regEmail" type="email" placeholder="البريد الإلكتروني" class="w-full p-4 pl-12 bg-gray-50 border border-gray-200 rounded-2xl outline-none font-bold focus:border-green-500">
+                <input id="regEmail" type="email" placeholder="البريد الإلكتروني" class="w-full p-4 pl-12 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold focus:border-green-500">
             </div>
             <div class="relative">
                 <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                <input id="regPass" type="password" placeholder="كلمة المرور" class="w-full p-4 pl-12 bg-gray-50 border border-gray-200 rounded-2xl outline-none font-bold focus:border-green-500">
+                <input id="regPass" type="password" placeholder="كلمة المرور" class="w-full p-4 pl-12 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold focus:border-green-500">
             </div>
-            <button onclick="sendOTP()" class="w-full bg-black text-white p-5 rounded-2xl font-black text-lg shadow-xl hover:scale-[1.02] transition-transform">إنشاء حساب جديد</button>
+            <button onclick="sendOTP()" class="w-full bg-black text-white p-5 rounded-2xl font-black text-lg shadow-xl hover:scale-[1.02] transition-transform">إرسال كود التحقق</button>
         </div>
 
         <div id="otpForm" class="form-content space-y-6 text-center">
-            <h3 class="text-xl font-black italic text-gray-800">أدخل كود التحقق</h3>
+            <h3 class="text-xl font-black italic text-gray-800">أدخل كود التحقق المرسل لبريدك</h3>
             <div class="flex justify-center gap-2" dir="ltr">
                 <input type="text" maxlength="1" class="otp-input" oninput="this.nextElementSibling?.focus()">
                 <input type="text" maxlength="1" class="otp-input" oninput="this.nextElementSibling?.focus()">
@@ -68,7 +68,8 @@
                 <input type="text" maxlength="1" class="otp-input" oninput="this.nextElementSibling?.focus()">
                 <input type="text" maxlength="1" class="otp-input">
             </div>
-            <button onclick="verifyOTP()" class="w-full bg-green-600 text-white p-5 rounded-2xl font-black text-lg shadow-lg">تأكيد الحساب</button>
+            <button onclick="verifyOTP()" class="w-full bg-green-600 text-white p-5 rounded-2xl font-black text-lg shadow-lg hover:bg-green-700 transition">تأكيد الحساب</button>
+            <button onclick="location.reload()" class="text-sm text-gray-500 underline font-bold">إلغاء والمحاولة مجدداً</button>
         </div>
     </div>
 
@@ -87,7 +88,8 @@
 
     <script>
         (function() {
-            emailjs.init("jKcfVtOrO41wNIxeK"); // Public Key
+            // تفعيل المفتاح العام
+            emailjs.init("jKcfVtOrO41wNIxeK"); 
         })();
 
         function showForm(type) {
@@ -117,22 +119,23 @@
             const pass = document.getElementById('regPass').value;
             const code = Math.floor(100000 + Math.random() * 900000);
 
-            if(!name || !email || !pass) return alert("المرجو ملء جميع الخانات");
+            if(!name || !email || !pass) return alert("المرجو إدخال جميع البيانات");
 
-            // تم ربط المعرفات الخاصة بك
+            // الربط مع ServiceID و TemplateID من صورك
             emailjs.send("service_dk24ksf", "template_14tc2a8", {
-                name: name,
-                otp_code: code,
-                email: email,
+                name: name,         // يطابق {{name}}
+                otp_code: code,     // يطابق {{otp_code}}
+                email: email,       // يطابق {{email}} في To Email
                 time: new Date().toLocaleTimeString()
             }).then(() => {
                 window.storedOTP = code;
-                alert("تم إرسال كود التحقق بنجاح!");
+                alert("تم إرسال كود التحقق! تفقد بريدك الإلكتروني");
                 document.getElementById('registerForm').classList.remove('active');
                 document.getElementById('authTabs').style.display = 'none';
                 document.getElementById('otpForm').classList.add('active');
             }, (err) => {
-                alert("خطأ في الإرسال، تأكد من إعدادات EmailJS");
+                alert("خطأ في الإرسال، تأكد من إعدادات EmailJS وحساب Gmail المربوط");
+                console.error("EmailJS Error:", err);
             });
         }
 
@@ -140,10 +143,10 @@
             let entered = "";
             document.querySelectorAll('.otp-input').forEach(i => entered += i.value);
             if (entered == window.storedOTP) {
-                alert("تم التحقق بنجاح! مرحباً بك");
-                window.location.href = "home.html";
+                alert("تم التحقق بنجاح! مرحباً بك في ServeMaroc");
+                window.location.href = "home.html"; 
             } else {
-                alert("كود التحقق غير صحيح");
+                alert("الكود الذي أدخلته غير صحيح");
             }
         }
     </script>
