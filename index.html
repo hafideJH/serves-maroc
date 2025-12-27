@@ -10,6 +10,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
         body { font-family: 'Cairo', sans-serif; }
         
+        /* الخلفية المتدرجة كما في صورك */
         .hero-gradient {
             background: linear-gradient(180deg, #fef08a 0%, #dcfce7 60%, #86efac 100%);
             padding-bottom: 80px;
@@ -46,13 +47,14 @@
 
         <div class="glass-panel p-10 max-w-lg mx-auto rounded-[40px] shadow-2xl border border-white/50">
             <div class="flex mb-8 border-b border-gray-100">
-                <button class="w-1/2 pb-4 font-black text-xl border-b-4 border-green-600 text-green-600 uppercase">ServeMaroc</button>
+                <button class="w-1/2 pb-4 font-black text-xl border-b-4 border-green-600 text-green-600 uppercase italic">ServeMaroc</button>
                 <button class="w-1/2 pb-4 font-bold text-gray-400 text-xl italic">دخول</button>
             </div>
             <div class="space-y-5">
                 <input type="text" placeholder="اسم المستخدم" class="w-full p-5 bg-gray-50/50 border rounded-2xl outline-none focus:ring-2 focus:ring-green-400 text-right font-bold">
                 <input type="password" placeholder="كلمة المرور" class="w-full p-5 bg-gray-50/50 border rounded-2xl outline-none focus:ring-2 focus:ring-green-400 text-right font-bold">
                 <button class="w-full bg-green-600 text-white p-6 rounded-2xl font-black text-xl shadow-lg hover:bg-green-700 transition">دخول آمن للمنصة</button>
+                <a href="#" class="block text-sm text-blue-500 font-bold mt-2 italic">نسيت كلمة المرور؟</a>
             </div>
         </div>
     </section>
@@ -71,51 +73,31 @@
     </div>
 
     <section class="py-24 px-6 max-w-5xl mx-auto">
-        <div class="flex gap-6 overflow-x-auto pb-8 mb-16 justify-center">
-            <button onclick="openTab(event, 'insta')" class="tab-link active-tab bg-white p-10 rounded-[40px] shadow-md min-w-[180px] flex flex-col items-center border-2 border-transparent transition">
+        <h2 class="text-3xl font-black text-center mb-12 italic text-gray-800 uppercase tracking-widest">اختر المنصة</h2>
+        <div class="flex gap-6 overflow-x-auto pb-8 justify-center">
+            <button class="bg-white p-10 rounded-[40px] shadow-md min-w-[180px] flex flex-col items-center border-b-8 border-pink-500 transition hover:scale-105">
                 <i class="fa-brands fa-instagram text-7xl text-pink-500 mb-4"></i>
                 <span class="font-black text-lg">INSTAGRAM</span>
             </button>
-            <button onclick="openTab(event, 'tiktok')" class="tab-link bg-white p-10 rounded-[40px] shadow-md min-w-[180px] flex flex-col items-center border-2 border-transparent transition">
+            <button class="bg-white p-10 rounded-[40px] shadow-md min-w-[180px] flex flex-col items-center border-b-8 border-black transition hover:scale-105">
                 <i class="fa-brands fa-tiktok text-7xl text-black mb-4"></i>
                 <span class="font-black text-lg">TIKTOK</span>
             </button>
-            <button onclick="openTab(event, 'yt')" class="tab-link bg-white p-10 rounded-[40px] shadow-md min-w-[180px] flex flex-col items-center border-2 border-transparent transition">
+            <button class="bg-white p-10 rounded-[40px] shadow-md min-w-[180px] flex flex-col items-center border-b-8 border-red-600 transition hover:scale-105">
                 <i class="fa-brands fa-youtube text-7xl text-red-600 mb-4"></i>
                 <span class="font-black text-lg">YOUTUBE</span>
             </button>
         </div>
-
-        <div id="insta" class="tab-content active space-y-8 max-w-3xl mx-auto">
-            <div class="text-right text-2xl font-black text-gray-800 mb-4 border-r-8 border-pink-500 pr-4 flex items-center gap-3 justify-end">
-                <span>مشاهدات ServeMaroc (ليفي)</span> <i class="fa-solid fa-eye text-pink-500 text-3xl"></i>
-            </div>
-            <div class="bg-white p-10 rounded-[40px] shadow-lg flex justify-between items-center border border-gray-100">
-                <button class="bg-pink-600 text-white px-10 py-4 rounded-2xl font-black text-xl shadow-xl hover:bg-pink-700 transition">+ Add</button>
-                <div class="text-right">
-                    <h4 class="text-2xl font-black text-gray-900 mb-1 tracking-tighter">10k مشاهدة فيديو سريع</h4>
-                    <p class="text-gray-400 text-sm font-bold italic">مشاهدات آمنة ترفع من الإكسبلور</p>
-                    <div class="text-3xl font-black text-red-600 mt-2">MAD 15.00</div>
-                </div>
-            </div>
+        
+        <div class="text-center mt-20 p-10 bg-gray-100 rounded-[30px] border-2 border-dashed border-gray-300">
+            <p class="text-gray-500 font-bold italic">سيتم إضافة خدمات ServeMaroc الجديدة قريباً...</p>
         </div>
     </section>
 
     <footer class="bg-gray-900 text-white py-12 px-6 text-center">
-        <h2 class="text-3xl font-black mb-4 tracking-tighter italic uppercase text-green-500">SERVE MAROC</h2>
+        <h2 class="text-3xl font-black mb-4 tracking-tighter italic uppercase text-green-500 italic">SERVE MAROC</h2>
         <p class="text-gray-500 font-bold italic">جميع الحقوق محفوظة لمنصة ServeMaroc © 2025</p>
     </footer>
 
-    <script>
-        function openTab(evt, tabName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = "none"; }
-            tablinks = document.getElementsByClassName("tab-link");
-            for (i = 0; i < tablinks.length; i++) { tablinks[i].classList.remove("active-tab", "shadow-2xl"); }
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.classList.add("active-tab", "shadow-2xl");
-        }
-    </script>
 </body>
 </html>
