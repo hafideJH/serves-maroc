@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ServeMaroc | المنصة رقم #1 لخدمات الميديا</title>
+    <title>ServeMaroc | المنصة رقم #1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
         body { font-family: 'Cairo', sans-serif; }
         
-        /* الخلفية المتدرجة كما في صورك */
+        /* الخلفية المتدرجة الأصلية من صورك */
         .hero-gradient {
             background: linear-gradient(180deg, #fef08a 0%, #dcfce7 60%, #86efac 100%);
-            padding-bottom: 80px;
+            min-height: 100vh;
+            padding-bottom: 50px;
         }
 
         .glass-panel {
@@ -21,12 +22,6 @@
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.4);
         }
-
-        .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeInUp 0.5s ease; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        .active-tab { border-bottom: 6px solid #16a34a !important; transform: scale(1.05); }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -43,60 +38,46 @@
         <h1 class="text-5xl md:text-7xl font-black text-gray-900 mb-4 italic uppercase tracking-tighter">
             SERVE<span class="text-green-600">MAROC</span>
         </h1>
-        <p class="text-gray-700 max-w-2xl mx-auto mb-12 text-xl font-bold italic">المنصة رقم #1 لخدمات الميديا والألعاب</p>
+        <p class="text-gray-700 max-w-2xl mx-auto mb-12 text-xl font-bold italic">المنصة رقم #1 لنمو السوشيال ميديا</p>
 
-        <div class="glass-panel p-10 max-w-lg mx-auto rounded-[40px] shadow-2xl border border-white/50">
+        <div class="glass-panel p-10 max-w-lg mx-auto rounded-[40px] shadow-2xl border border-white/50 mb-16">
             <div class="flex mb-8 border-b border-gray-100">
-                <button class="w-1/2 pb-4 font-black text-xl border-b-4 border-green-600 text-green-600 uppercase italic">ServeMaroc</button>
-                <button class="w-1/2 pb-4 font-bold text-gray-400 text-xl italic">دخول</button>
+                <button class="w-1/2 pb-4 font-black text-xl border-b-4 border-green-600 text-green-600 uppercase italic">تسجيل الدخول</button>
+                <button class="w-1/2 pb-4 font-bold text-gray-400 text-xl italic">إنشاء حساب</button>
             </div>
-            <div class="space-y-5">
-                <input type="text" placeholder="اسم المستخدم" class="w-full p-5 bg-gray-50/50 border rounded-2xl outline-none focus:ring-2 focus:ring-green-400 text-right font-bold">
-                <input type="password" placeholder="كلمة المرور" class="w-full p-5 bg-gray-50/50 border rounded-2xl outline-none focus:ring-2 focus:ring-green-400 text-right font-bold">
-                <button class="w-full bg-green-600 text-white p-6 rounded-2xl font-black text-xl shadow-lg hover:bg-green-700 transition">دخول آمن للمنصة</button>
-                <a href="#" class="block text-sm text-blue-500 font-bold mt-2 italic">نسيت كلمة المرور؟</a>
+            <div class="space-y-6 text-right">
+                <div class="relative">
+                    <i class="fa fa-user absolute right-4 top-5 text-gray-400"></i>
+                    <input type="text" placeholder="اسم المستخدم" class="w-full p-5 pr-12 bg-gray-50/50 border rounded-2xl outline-none focus:ring-2 focus:ring-green-400 font-bold">
+                </div>
+                <div class="relative">
+                    <i class="fa fa-lock absolute right-4 top-5 text-gray-400"></i>
+                    <input type="password" placeholder="كلمة المرور" class="w-full p-5 pr-12 bg-gray-50/50 border rounded-2xl outline-none focus:ring-2 focus:ring-green-400 font-bold">
+                </div>
+                <button class="w-full bg-green-600 text-white p-6 rounded-2xl font-black text-xl shadow-lg hover:bg-green-700 transition flex justify-center items-center gap-2">
+                    دخول آمن للمنصة <i class="fa-solid fa-right-to-bracket"></i>
+                </button>
+                <a href="#" class="block text-center text-sm text-blue-500 font-bold mt-2 italic underline">نسيت كلمة المرور؟</a>
             </div>
         </div>
-    </section>
 
-    <div class="max-w-4xl mx-auto grid grid-cols-2 gap-6 px-6 -mt-12 relative z-10">
-        <div class="bg-white p-8 rounded-[30px] shadow-xl text-center border-b-8 border-yellow-400">
-            <i class="fa-solid fa-bolt text-4xl text-yellow-400 mb-4"></i>
-            <div class="text-2xl font-black italic text-gray-800 uppercase">ServeMaroc Speed</div>
-            <p class="text-gray-400 text-sm font-bold mt-1">سرعة تنفيذ الطلب 1 ثانية</p>
-        </div>
-        <div class="bg-white p-8 rounded-[30px] shadow-xl text-center border-b-8 border-green-500">
-            <i class="fa-solid fa-users text-4xl text-green-500 mb-4"></i>
-            <div class="text-2xl font-black italic text-gray-800 uppercase">250k Clients</div>
-            <p class="text-gray-400 text-sm font-bold mt-1">عميل نشط يثق بنا</p>
-        </div>
-    </div>
-
-    <section class="py-24 px-6 max-w-5xl mx-auto">
-        <h2 class="text-3xl font-black text-center mb-12 italic text-gray-800 uppercase tracking-widest">اختر المنصة</h2>
-        <div class="flex gap-6 overflow-x-auto pb-8 justify-center">
-            <button class="bg-white p-10 rounded-[40px] shadow-md min-w-[180px] flex flex-col items-center border-b-8 border-pink-500 transition hover:scale-105">
-                <i class="fa-brands fa-instagram text-7xl text-pink-500 mb-4"></i>
-                <span class="font-black text-lg">INSTAGRAM</span>
-            </button>
-            <button class="bg-white p-10 rounded-[40px] shadow-md min-w-[180px] flex flex-col items-center border-b-8 border-black transition hover:scale-105">
-                <i class="fa-brands fa-tiktok text-7xl text-black mb-4"></i>
-                <span class="font-black text-lg">TIKTOK</span>
-            </button>
-            <button class="bg-white p-10 rounded-[40px] shadow-md min-w-[180px] flex flex-col items-center border-b-8 border-red-600 transition hover:scale-105">
-                <i class="fa-brands fa-youtube text-7xl text-red-600 mb-4"></i>
-                <span class="font-black text-lg">YOUTUBE</span>
-            </button>
-        </div>
-        
-        <div class="text-center mt-20 p-10 bg-gray-100 rounded-[30px] border-2 border-dashed border-gray-300">
-            <p class="text-gray-500 font-bold italic">سيتم إضافة خدمات ServeMaroc الجديدة قريباً...</p>
+        <div class="max-w-4xl mx-auto grid grid-cols-2 gap-6 px-4">
+            <div class="bg-white p-8 rounded-[35px] shadow-xl text-center border-b-8 border-yellow-400 hover:scale-105 transition">
+                <i class="fa-solid fa-bolt text-4xl text-yellow-400 mb-4"></i>
+                <div class="text-3xl font-black italic text-gray-800">1 ثانية</div>
+                <p class="text-gray-400 text-sm font-bold mt-1">سرعة تنفيذ الطلب</p>
+            </div>
+            <div class="bg-white p-8 rounded-[35px] shadow-xl text-center border-b-8 border-green-500 hover:scale-105 transition">
+                <i class="fa-solid fa-users text-4xl text-green-500 mb-4"></i>
+                <div class="text-3xl font-black italic text-gray-800">+250k</div>
+                <p class="text-gray-400 text-sm font-bold mt-1">عميل نشط</p>
+            </div>
         </div>
     </section>
 
     <footer class="bg-gray-900 text-white py-12 px-6 text-center">
-        <h2 class="text-3xl font-black mb-4 tracking-tighter italic uppercase text-green-500 italic">SERVE MAROC</h2>
-        <p class="text-gray-500 font-bold italic">جميع الحقوق محفوظة لمنصة ServeMaroc © 2025</p>
+        <h2 class="text-3xl font-black mb-4 tracking-tighter italic uppercase text-green-500">SERVE MAROC</h2>
+        <p class="text-gray-500 font-bold italic">حقوق الطبع والنشر © 2025 لـ ServeMaroc</p>
     </footer>
 
 </body>
