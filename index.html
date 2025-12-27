@@ -7,24 +7,22 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
         body { font-family: 'Cairo', sans-serif; }
         .hero-gradient { background: linear-gradient(180deg, #fef08a 0%, #dcfce7 60%, #86efac 100%); min-height: 100vh; }
         .glass-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); border-radius: 40px; border: 1px solid white; box-shadow: 0 25px 50px rgba(0,0,0,0.1); }
         .form-content { display: none; }
-        .form-content.active { display: block; animation: fadeIn 0.4s ease; }
-        .otp-input { width: 45px; height: 55px; text-align: center; font-size: 1.5rem; font-weight: 900; border: 2px solid #e5e7eb; border-radius: 12px; }
+        .form-content.active { display: block; animation: fadeIn 0.3s ease; }
+        .otp-input { width: 42px; height: 50px; text-align: center; font-size: 1.2rem; font-weight: 900; border: 2px solid #e5e7eb; border-radius: 10px; }
         .tab-btn.active { color: #16a34a; font-weight: 900; border-bottom: 4px solid #16a34a; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body class="hero-gradient px-6 py-10 flex flex-col items-center">
 
-    <div class="text-center mb-10">
-        <h1 class="text-5xl font-black text-green-700 uppercase tracking-tighter">Serve<span class="text-black">Maroc</span></h1>
-        <p class="text-gray-600 font-bold mt-2 italic">المنصة الموثوقة لنمو حساباتك</p>
+    <div class="text-center mb-8">
+        <h1 class="text-4xl font-black text-green-700 uppercase">Serve<span class="text-black">Maroc</span></h1>
     </div>
 
     <div class="glass-panel p-8 w-full max-w-md">
@@ -33,22 +31,22 @@
             <button id="regTab" onclick="switchTab('reg')" class="tab-btn w-1/2 pb-4 font-black active text-green-700">إنشاء حساب</button>
         </div>
 
-        <div id="loginForm" class="form-content space-y-5">
+        <div id="loginForm" class="form-content space-y-4">
             <input id="loginEmail" type="email" placeholder="البريد الإلكتروني" class="w-full p-4 bg-gray-50 border rounded-2xl outline-none font-bold">
             <input id="loginPass" type="password" placeholder="كلمة المرور" class="w-full p-4 bg-gray-50 border rounded-2xl outline-none font-bold">
-            <button onclick="handleLogin()" class="w-full bg-black text-white p-5 rounded-2xl font-black text-lg shadow-lg">دخول</button>
+            <button onclick="handleLogin()" class="w-full bg-black text-white p-4 rounded-2xl font-black shadow-lg">دخول</button>
         </div>
 
         <div id="registerForm" class="form-content active space-y-4">
             <input id="uName" type="text" placeholder="اسم المستخدم" class="w-full p-4 bg-gray-50 border rounded-2xl outline-none font-bold">
             <input id="uEmail" type="email" placeholder="البريد الإلكتروني" class="w-full p-4 bg-gray-50 border rounded-2xl outline-none font-bold">
             <input id="uPass" type="password" placeholder="كلمة المرور" class="w-full p-4 bg-gray-50 border rounded-2xl outline-none font-bold">
-            <button id="sendBtn" onclick="sendOTP()" class="w-full bg-green-700 text-white p-5 rounded-2xl font-black text-lg shadow-xl">إرسال كود التحقق</button>
+            <button id="sendBtn" onclick="sendOTP()" class="w-full bg-green-700 text-white p-4 rounded-2xl font-black shadow-xl">إرسال كود التحقق</button>
         </div>
 
         <div id="otpForm" class="form-content space-y-6 text-center">
-            <h3 class="text-xl font-black text-gray-800">أدخل رمز التحقق</h3>
-            <div class="flex justify-center gap-2" dir="ltr">
+            <h3 class="font-black">أدخل الرمز المرسل</h3>
+            <div class="flex justify-center gap-1" dir="ltr">
                 <input type="text" maxlength="1" class="otp-input" oninput="move(this, 'i2')" id="i1">
                 <input type="text" maxlength="1" class="otp-input" oninput="move(this, 'i3')" id="i2">
                 <input type="text" maxlength="1" class="otp-input" oninput="move(this, 'i4')" id="i3">
@@ -56,7 +54,7 @@
                 <input type="text" maxlength="1" class="otp-input" oninput="move(this, 'i6')" id="i5">
                 <input type="text" maxlength="1" class="otp-input" id="i6">
             </div>
-            <button onclick="verifyOTP()" class="w-full bg-black text-white p-5 rounded-2xl font-black text-lg shadow-lg">تأكيد التفعيل</button>
+            <button onclick="verifyOTP()" class="w-full bg-black text-white p-4 rounded-2xl font-black">تأكيد</button>
         </div>
     </div>
 
@@ -76,29 +74,27 @@
             if (el.value.length >= 1 && nextId) document.getElementById(nextId).focus();
         }
 
-        // --- نظام منع التكرار ---
         function sendOTP() {
             const name = document.getElementById('uName').value;
             const email = document.getElementById('uEmail').value;
-            const btn = document.getElementById('sendBtn');
+            const pass = document.getElementById('uPass').value;
 
-            if(!name || !email) return alert("المرجو ملء جميع الخانات!");
+            if(!name || !email || !pass) return alert("عمر الخانات كاملة!");
 
+            // الحفظ الفوري في الذاكرة (قبل الإرسال لضمان بقاء البيانات)
             let users = JSON.parse(localStorage.getItem('serve_users') || "[]");
-            if (users.some(u => u.email === email)) {
-                return alert("هذا الإيميل مسجل مسبقاً! جرب تسجيل الدخول.");
-            }
+            if (users.find(u => u.email === email)) return alert("هذا الإيميل مستخدم!");
 
-            btn.innerText = "جاري الإرسال...";
-            btn.disabled = true;
             generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+            
+            document.getElementById('sendBtn').innerText = "جاري الإرسال...";
 
             emailjs.send("service_dk24ksf", "template_14tc2a8", {
                 name: name,
                 email: email,
                 otp_code: generatedOTP
             }).then(() => {
-                alert("تم إرسال الكود!");
+                alert("تم الإرسال!");
                 document.getElementById('registerForm').classList.remove('active');
                 document.getElementById('otpForm').classList.add('active');
             });
@@ -109,35 +105,35 @@
             for(let i=1; i<=6; i++) typed += document.getElementById('i'+i).value;
             
             if(typed === generatedOTP) {
-                // حفظ البيانات عند النجاح
-                let newUser = {
+                // الحفظ النهائي
+                let users = JSON.parse(localStorage.getItem('serve_users') || "[]");
+                users.push({
                     name: document.getElementById('uName').value,
                     email: document.getElementById('uEmail').value,
                     pass: document.getElementById('uPass').value
-                };
-                let users = JSON.parse(localStorage.getItem('serve_users') || "[]");
-                users.push(newUser);
+                });
                 localStorage.setItem('serve_users', JSON.stringify(users));
-
-                alert("تم التفعيل بنجاح!");
+                
+                alert("تم التفعيل!");
                 window.location.href = "./w/";
             } else {
-                alert("الكود خاطئ!");
+                alert("الكود غلط!");
             }
         }
 
-        // --- نظام تسجيل الدخول ---
         function handleLogin() {
             const email = document.getElementById('loginEmail').value;
             const pass = document.getElementById('loginPass').value;
+            
+            // قراءة البيانات من المتصفح
             let users = JSON.parse(localStorage.getItem('serve_users') || "[]");
-
             const user = users.find(u => u.email === email && u.pass === pass);
+            
             if (user) {
-                alert("مرحباً بك مجدداً " + user.name);
+                alert("مرحباً بك " + user.name);
                 window.location.href = "./w/";
             } else {
-                alert("الإيميل أو كلمة المرور غير صحيحة!");
+                alert("خطأ! تأكد من الإيميل أو أنك مسجل أصلاً.");
             }
         }
     </script>
