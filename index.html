@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ServeMaroc | المنصة رقم #1 لخدمات الميديا والألعاب</title>
+    <title>ServeMaroc | المنصة رقم #1 لخدمات الميديا</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
-        body { font-family: 'Cairo', sans-serif; background-color: #f4f7f6; }
+        body { font-family: 'Cairo', sans-serif; }
         
-        /* الخلفية المتدرجة الأصلية من صورك */
         .hero-gradient {
             background: linear-gradient(180deg, #fef08a 0%, #dcfce7 60%, #86efac 100%);
-            padding-bottom: 60px;
+            padding-bottom: 80px;
         }
 
         .glass-panel {
@@ -24,129 +23,87 @@
 
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: fadeInUp 0.5s ease; }
-        
-        @keyframes fadeInUp { 
-            from { opacity: 0; transform: translateY(20px); } 
-            to { opacity: 1; transform: translateY(0); } 
-        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .active-tab { 
-            border-bottom: 6px solid #16a34a !important; 
-            transform: scale(1.05); 
-            background-color: #f0fdf4;
-        }
-
-        /* تنسيق زر Add الوردي كما في الصورة */
-        .btn-add {
-            background-color: #d81b60;
-            color: white;
-            padding: 10px 24px;
-            border-radius: 14px;
-            font-weight: 900;
-            box-shadow: 0 4px 12px rgba(216, 27, 96, 0.3);
-            transition: 0.3s;
-        }
-        .btn-add:hover { transform: scale(1.05); background-color: #ad1457; }
+        .active-tab { border-bottom: 6px solid #16a34a !important; transform: scale(1.05); }
     </style>
 </head>
 <body class="bg-gray-50">
 
-    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 p-4 shadow-sm flex justify-between items-center px-6 md:px-12">
-        <div class="flex items-center gap-2">
-            <span class="text-xs text-gray-500 font-bold uppercase tracking-widest">ServeMaroc</span>
-            <div class="text-2xl font-black tracking-tighter text-gray-800">SMM<span class="text-green-600">CPAN</span></div>
-        </div>
-        <div class="flex items-center gap-4">
-            <button class="bg-black text-white px-6 py-2 rounded-xl font-black text-sm shadow-lg hover:bg-gray-800 transition">سجل الآن</button>
-            <a href="https://wa.me/2126XXXXXXXX" class="text-green-500 text-3xl"><i class="fa-brands fa-whatsapp"></i></a>
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 p-5 shadow-sm flex justify-between items-center px-10">
+        <div class="text-3xl font-black tracking-tighter uppercase">SERVE<span class="text-green-600">MAROC</span></div>
+        <div class="flex gap-4">
+            <button class="bg-black text-white px-8 py-3 rounded-2xl font-black text-sm shadow-xl hover:bg-gray-800 transition">سجل الآن</button>
+            <a href="https://wa.me/212XXXXXXXXX" class="text-green-500 text-3xl self-center"><i class="fa-brands fa-whatsapp"></i></a>
         </div>
     </nav>
 
-    <section class="hero-gradient px-6 text-center pt-12">
-        <div class="mb-8">
-            <h1 class="text-4xl md:text-6xl font-black italic text-gray-900 tracking-tighter uppercase">
-                SERVE<span class="text-green-600">MAROC</span>
-            </h1>
-            <p class="text-sm md:text-lg font-bold text-gray-700 mt-2">المنصة رقم #1 لخدمات الميديا والألعاب</p>
-        </div>
+    <section class="hero-gradient px-6 text-center pt-16">
+        <h1 class="text-5xl md:text-7xl font-black text-gray-900 mb-4 italic uppercase tracking-tighter">
+            SERVE<span class="text-green-600">MAROC</span>
+        </h1>
+        <p class="text-gray-700 max-w-2xl mx-auto mb-12 text-xl font-bold italic">المنصة رقم #1 لخدمات الميديا والألعاب</p>
 
-        <div class="glass-panel p-8 max-w-md mx-auto rounded-[35px] shadow-2xl border border-white/50 mb-12">
+        <div class="glass-panel p-10 max-w-lg mx-auto rounded-[40px] shadow-2xl border border-white/50">
             <div class="flex mb-8 border-b border-gray-100">
-                <button class="w-1/2 pb-4 font-black text-lg border-b-4 border-green-600 text-green-600">تسجيل الدخول</button>
-                <button class="w-1/2 pb-4 font-bold text-gray-400 text-lg">إنشاء حساب</button>
+                <button class="w-1/2 pb-4 font-black text-xl border-b-4 border-green-600 text-green-600 uppercase">ServeMaroc</button>
+                <button class="w-1/2 pb-4 font-bold text-gray-400 text-xl italic">دخول</button>
             </div>
-            <div class="space-y-4">
-                <input type="text" placeholder="اسم المستخدم" class="w-full p-4 bg-white/50 border border-gray-100 rounded-2xl outline-none focus:ring-2 focus:ring-green-400 text-right text-sm">
-                <input type="password" placeholder="كلمة المرور" class="w-full p-4 bg-white/50 border border-gray-100 rounded-2xl outline-none focus:ring-2 focus:ring-green-400 text-right text-sm">
-                <button class="w-full bg-green-600 text-white p-4 rounded-2xl font-black text-lg shadow-lg hover:bg-green-700 transition flex justify-center items-center gap-2">
-                    دخول آمن <i class="fa fa-sign-in"></i>
-                </button>
-                <a href="#" class="block text-xs text-blue-500 font-bold mt-2">نسيت كلمة المرور؟</a>
-            </div>
-        </div>
-
-        <div class="max-w-4xl mx-auto grid grid-cols-2 gap-4 px-2">
-            <div class="bg-white p-6 rounded-[25px] shadow-xl text-center border-b-4 border-yellow-400">
-                <i class="fa-solid fa-bolt text-3xl text-yellow-400 mb-2"></i>
-                <div class="text-xl font-black">1 ثانية</div>
-                <p class="text-gray-400 text-xs font-bold">سرعة تنفيذ الطلب</p>
-            </div>
-            <div class="bg-white p-6 rounded-[25px] shadow-xl text-center border-b-4 border-green-500">
-                <i class="fa-solid fa-users text-3xl text-green-500 mb-2"></i>
-                <div class="text-xl font-black">+250k</div>
-                <p class="text-gray-400 text-xs font-bold">عميل نشط</p>
+            <div class="space-y-5">
+                <input type="text" placeholder="اسم المستخدم" class="w-full p-5 bg-gray-50/50 border rounded-2xl outline-none focus:ring-2 focus:ring-green-400 text-right font-bold">
+                <input type="password" placeholder="كلمة المرور" class="w-full p-5 bg-gray-50/50 border rounded-2xl outline-none focus:ring-2 focus:ring-green-400 text-right font-bold">
+                <button class="w-full bg-green-600 text-white p-6 rounded-2xl font-black text-xl shadow-lg hover:bg-green-700 transition">دخول آمن للمنصة</button>
             </div>
         </div>
     </section>
 
-    <section class="py-16 px-6 max-w-5xl mx-auto">
-        <div class="flex gap-4 overflow-x-auto pb-6 mb-12 justify-center">
-            <button onclick="openTab(event, 'yt')" class="tab-link bg-white p-6 rounded-[30px] shadow-md min-w-[140px] flex flex-col items-center border-b-4 border-red-600">
-                <i class="fa-brands fa-youtube text-5xl text-red-600 mb-2"></i>
-                <span class="font-black text-xs">YOUTUBE</span>
+    <div class="max-w-4xl mx-auto grid grid-cols-2 gap-6 px-6 -mt-12 relative z-10">
+        <div class="bg-white p-8 rounded-[30px] shadow-xl text-center border-b-8 border-yellow-400">
+            <i class="fa-solid fa-bolt text-4xl text-yellow-400 mb-4"></i>
+            <div class="text-2xl font-black italic text-gray-800 uppercase">ServeMaroc Speed</div>
+            <p class="text-gray-400 text-sm font-bold mt-1">سرعة تنفيذ الطلب 1 ثانية</p>
+        </div>
+        <div class="bg-white p-8 rounded-[30px] shadow-xl text-center border-b-8 border-green-500">
+            <i class="fa-solid fa-users text-4xl text-green-500 mb-4"></i>
+            <div class="text-2xl font-black italic text-gray-800 uppercase">250k Clients</div>
+            <p class="text-gray-400 text-sm font-bold mt-1">عميل نشط يثق بنا</p>
+        </div>
+    </div>
+
+    <section class="py-24 px-6 max-w-5xl mx-auto">
+        <div class="flex gap-6 overflow-x-auto pb-8 mb-16 justify-center">
+            <button onclick="openTab(event, 'insta')" class="tab-link active-tab bg-white p-10 rounded-[40px] shadow-md min-w-[180px] flex flex-col items-center border-2 border-transparent transition">
+                <i class="fa-brands fa-instagram text-7xl text-pink-500 mb-4"></i>
+                <span class="font-black text-lg">INSTAGRAM</span>
             </button>
-            <button onclick="openTab(event, 'tiktok')" class="tab-link bg-white p-6 rounded-[30px] shadow-md min-w-[140px] flex flex-col items-center border-b-4 border-black">
-                <i class="fa-brands fa-tiktok text-5xl text-black mb-2"></i>
-                <span class="font-black text-xs">TIKTOK</span>
+            <button onclick="openTab(event, 'tiktok')" class="tab-link bg-white p-10 rounded-[40px] shadow-md min-w-[180px] flex flex-col items-center border-2 border-transparent transition">
+                <i class="fa-brands fa-tiktok text-7xl text-black mb-4"></i>
+                <span class="font-black text-lg">TIKTOK</span>
             </button>
-            <button onclick="openTab(event, 'insta')" class="tab-link active-tab bg-white p-6 rounded-[30px] shadow-md min-w-[140px] flex flex-col items-center border-b-4 border-pink-500">
-                <i class="fa-brands fa-instagram text-5xl text-pink-500 mb-2"></i>
-                <span class="font-black text-xs">INSTAGRAM</span>
+            <button onclick="openTab(event, 'yt')" class="tab-link bg-white p-10 rounded-[40px] shadow-md min-w-[180px] flex flex-col items-center border-2 border-transparent transition">
+                <i class="fa-brands fa-youtube text-7xl text-red-600 mb-4"></i>
+                <span class="font-black text-lg">YOUTUBE</span>
             </button>
         </div>
 
-        <div id="insta" class="tab-content active space-y-6 max-w-3xl mx-auto">
-            <div class="flex items-center gap-3 justify-end border-r-4 border-pink-500 pr-3 mr-1 mb-4">
-                <h3 class="text-xl font-black text-gray-800 uppercase tracking-tighter">خدمات الإعجاب (Likes)</h3>
-                <i class="fa-solid fa-heart text-pink-500"></i>
+        <div id="insta" class="tab-content active space-y-8 max-w-3xl mx-auto">
+            <div class="text-right text-2xl font-black text-gray-800 mb-4 border-r-8 border-pink-500 pr-4 flex items-center gap-3 justify-end">
+                <span>مشاهدات ServeMaroc (ليفي)</span> <i class="fa-solid fa-eye text-pink-500 text-3xl"></i>
             </div>
-            <div class="bg-white p-6 rounded-[30px] shadow-lg flex justify-between items-center border border-gray-100">
-                <button class="btn-add">+ Add</button>
+            <div class="bg-white p-10 rounded-[40px] shadow-lg flex justify-between items-center border border-gray-100">
+                <button class="bg-pink-600 text-white px-10 py-4 rounded-2xl font-black text-xl shadow-xl hover:bg-pink-700 transition">+ Add</button>
                 <div class="text-right">
-                    <h4 class="text-lg font-black text-gray-900">5000 إعجاب (سريع)</h4>
-                    <p class="text-gray-400 text-xs font-bold">تفاعل حقيقي ونشط فوري</p>
-                    <div class="text-2xl font-black text-red-600 mt-2 tracking-tighter">MAD 30.00</div>
-                </div>
-            </div>
-            
-            <div class="flex items-center gap-3 justify-end border-r-4 border-pink-500 pr-3 mr-1 mt-10 mb-4">
-                <h3 class="text-xl font-black text-gray-800 uppercase tracking-tighter">مشاهدات (ليفي)</h3>
-                <i class="fa-solid fa-eye text-pink-500"></i>
-            </div>
-            <div class="bg-white p-6 rounded-[30px] shadow-lg flex justify-between items-center border border-gray-100">
-                <button class="btn-add">+ Add</button>
-                <div class="text-right">
-                    <h4 class="text-lg font-black text-gray-900">10k مشاهدة فيديو</h4>
-                    <p class="text-gray-400 text-xs font-bold">مشاهدات آمنة ترفع من إكسبلور</p>
-                    <div class="text-2xl font-black text-red-600 mt-2 tracking-tighter">MAD 15.00</div>
+                    <h4 class="text-2xl font-black text-gray-900 mb-1 tracking-tighter">10k مشاهدة فيديو سريع</h4>
+                    <p class="text-gray-400 text-sm font-bold italic">مشاهدات آمنة ترفع من الإكسبلور</p>
+                    <div class="text-3xl font-black text-red-600 mt-2">MAD 15.00</div>
                 </div>
             </div>
         </div>
     </section>
 
     <footer class="bg-gray-900 text-white py-12 px-6 text-center">
-        <div class="text-2xl font-black mb-4 tracking-tighter uppercase">SERVE<span class="text-green-500">MAROC</span></div>
-        <p class="text-gray-500 text-sm italic font-bold">حقوق الطبع والنشر © 2025. جميع الحقوق محفوظة لـ ServeMaroc.</p>
+        <h2 class="text-3xl font-black mb-4 tracking-tighter italic uppercase text-green-500">SERVE MAROC</h2>
+        <p class="text-gray-500 font-bold italic">جميع الحقوق محفوظة لمنصة ServeMaroc © 2025</p>
     </footer>
 
     <script>
@@ -155,9 +112,9 @@
             tabcontent = document.getElementsByClassName("tab-content");
             for (i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = "none"; }
             tablinks = document.getElementsByClassName("tab-link");
-            for (i = 0; i < tablinks.length; i++) { tablinks[i].classList.remove("active-tab"); }
+            for (i = 0; i < tablinks.length; i++) { tablinks[i].classList.remove("active-tab", "shadow-2xl"); }
             document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.classList.add("active-tab");
+            evt.currentTarget.classList.add("active-tab", "shadow-2xl");
         }
     </script>
 </body>
