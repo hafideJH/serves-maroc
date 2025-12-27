@@ -3,152 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ServeMaroc | الدخول والتحقق</title>
+    <title>ServeMaroc | الدخول والتسجيل</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
-        body { font-family: 'Cairo', sans-serif; }
-        .hero-gradient { background: linear-gradient(180deg, #fef08a 0%, #dcfce7 60%, #86efac 100%); min-height: 100vh; }
+        body { font-family: 'Cairo', sans-serif; background: linear-gradient(180deg, #fef08a 0%, #dcfce7 60%, #86efac 100%); min-height: 100vh; }
         .glass-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); border-radius: 40px; border: 1px solid white; box-shadow: 0 25px 50px rgba(0,0,0,0.1); }
-        .form-content { display: none; }
-        .form-content.active { display: block; animation: fadeIn 0.3s ease; }
-        .otp-input { width: 42px; height: 50px; text-align: center; font-size: 1.2rem; font-weight: 900; border: 2px solid #e5e7eb; border-radius: 10px; }
-        .tab-btn.active { color: #16a34a; font-weight: 900; border-bottom: 4px solid #16a34a; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .form-section { display: none; }
+        .form-section.active { display: block; animation: slideUp 0.3s ease-out; }
+        .tab-btn.active { color: #16a34a; border-bottom: 4px solid #16a34a; font-weight: 900; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="hero-gradient px-6 py-10 flex flex-col items-center">
+<body class="px-6 py-10 flex flex-col items-center justify-center">
 
-    <div class="text-center mb-8">
-        <h1 class="text-4xl font-black text-green-700 uppercase">Serve<span class="text-black">Maroc</span></h1>
+    <div class="text-center mb-10">
+        <h1 class="text-5xl font-black text-green-700 uppercase tracking-tighter">Serve<span class="text-black">Maroc</span></h1>
     </div>
 
     <div class="glass-panel p-8 w-full max-w-md">
-        <div id="authTabs" class="flex mb-8 border-b border-gray-100">
-            <button id="loginTab" onclick="switchTab('login')" class="tab-btn w-1/2 pb-4 font-bold text-gray-400">تسجيل الدخول</button>
-            <button id="regTab" onclick="switchTab('reg')" class="tab-btn w-1/2 pb-4 font-black active text-green-700">إنشاء حساب</button>
+        <div id="navigationTabs" class="flex mb-8 border-b border-gray-100">
+            <button onclick="showUI('login')" id="btnTabLogin" class="tab-btn w-1/2 pb-4 font-bold text-gray-400 transition-all">تسجيل الدخول</button>
+            <button onclick="showUI('register')" id="btnTabReg" class="tab-btn w-1/2 pb-4 font-black active text-green-700 transition-all">إنشاء حساب</button>
         </div>
 
-        <div id="loginForm" class="form-content space-y-4">
-            <input id="loginEmail" type="email" placeholder="البريد الإلكتروني" class="w-full p-4 bg-gray-50 border rounded-2xl outline-none font-bold">
-            <input id="loginPass" type="password" placeholder="كلمة المرور" class="w-full p-4 bg-gray-50 border rounded-2xl outline-none font-bold">
-            <button onclick="handleLogin()" class="w-full bg-black text-white p-4 rounded-2xl font-black shadow-lg">دخول</button>
+        <div id="sectionLogin" class="form-section space-y-5">
+            <input id="logEmail" type="email" placeholder="البريد الإلكتروني" class="w-full p-4 bg-gray-50 border rounded-2xl outline-none font-bold focus:ring-2 focus:ring-green-500">
+            <input id="logPass" type="password" placeholder="كلمة المرور" class="w-full p-4 bg-gray-50 border rounded-2xl outline-none font-bold focus:ring-2 focus:ring-green-500">
+            <button onclick="LoginServer.execute()" class="w-full bg-black text-white p-5 rounded-2xl font-black text-lg shadow-xl active:scale-95 transition">دخول</button>
         </div>
 
-        <div id="registerForm" class="form-content active space-y-4">
-            <input id="uName" type="text" placeholder="اسم المستخدم" class="w-full p-4 bg-gray-50 border rounded-2xl outline-none font-bold">
-            <input id="uEmail" type="email" placeholder="البريد الإلكتروني" class="w-full p-4 bg-gray-50 border rounded-2xl outline-none font-bold">
-            <input id="uPass" type="password" placeholder="كلمة المرور" class="w-full p-4 bg-gray-50 border rounded-2xl outline-none font-bold">
-            <button id="sendBtn" onclick="sendOTP()" class="w-full bg-green-700 text-white p-4 rounded-2xl font-black shadow-xl">إرسال كود التحقق</button>
+        <div id="sectionRegister" class="form-section active space-y-4">
+            <input id="regName" type="text" placeholder="اسم المستخدم" class="w-full p-4 bg-gray-50 border rounded-2xl outline-none font-bold">
+            <input id="regEmail" type="email" placeholder="البريد الإلكتروني" class="w-full p-4 bg-gray-50 border rounded-2xl outline-none font-bold">
+            <input id="regPass" type="password" placeholder="كلمة المرور" class="w-full p-4 bg-gray-50 border rounded-2xl outline-none font-bold">
+            <button id="regSubmitBtn" onclick="RegisterServer.sendOTP()" class="w-full bg-green-700 text-white p-5 rounded-2xl font-black text-lg shadow-xl active:scale-95">إرسال كود التحقق</button>
         </div>
 
-        <div id="otpForm" class="form-content space-y-6 text-center">
-            <h3 class="font-black text-gray-800">أدخل الرمز المرسل</h3>
-            <div class="flex justify-center gap-1" dir="ltr">
-                <input type="text" maxlength="1" class="otp-input" oninput="move(this, 'i2')" id="i1">
-                <input type="text" maxlength="1" class="otp-input" oninput="move(this, 'i3')" id="i2">
-                <input type="text" maxlength="1" class="otp-input" oninput="move(this, 'i4')" id="i3">
-                <input type="text" maxlength="1" class="otp-input" oninput="move(this, 'i5')" id="i4">
-                <input type="text" maxlength="1" class="otp-input" oninput="move(this, 'i6')" id="i5">
-                <input type="text" maxlength="1" class="otp-input" id="i6">
-            </div>
-            <button onclick="verifyOTP()" class="w-full bg-black text-white p-4 rounded-2xl font-black">تأكيد التفعيل</button>
+        <div id="sectionOTP" class="form-section space-y-6 text-center">
+            <h3 class="text-xl font-black text-gray-800">تحقق من بريدك الإلكتروني</h3>
+            <input id="otpInput" type="text" maxlength="6" placeholder="000000" class="w-full p-4 text-center text-3xl tracking-[10px] font-black border-2 border-dashed rounded-2xl outline-none focus:border-green-500">
+            <button onclick="RegisterServer.verifyAndSave()" class="w-full bg-black text-white p-5 rounded-2xl font-black text-lg shadow-lg">تأكيد وتفعيل الحساب</button>
         </div>
     </div>
 
     <script>
-        // تفعيل EmailJS بالمعلومات من الصور
-        emailjs.init("WRpj_ZtTQw-eHAZDQ"); 
+        // تفعيل مفتاح الـ API
+        emailjs.init("WRpj_ZtTQw-eHAZDQ");
 
-        let generatedOTP = "";
-        let tempUser = {}; // لتخزين البيانات مؤقتاً قبل التحقق
-
-        function switchTab(tab) {
-            document.getElementById('loginForm').classList.toggle('active', tab === 'login');
-            document.getElementById('registerForm').classList.toggle('active', tab === 'reg');
-            document.getElementById('loginTab').classList.toggle('active', tab === 'login');
-            document.getElementById('regTab').classList.toggle('active', tab === 'reg');
-            document.getElementById('otpForm').classList.remove('active');
-        }
-
-        function move(el, nextId) {
-            if (el.value.length >= 1 && nextId) document.getElementById(nextId).focus();
-        }
-
-        function sendOTP() {
-            const name = document.getElementById('uName').value;
-            const email = document.getElementById('uEmail').value;
-            const pass = document.getElementById('uPass').value;
-
-            if(!name || !email || !pass) return alert("عمر الخانات كاملة!");
-
-            // التحقق إذا كان الإيميل مسجل مسبقاً في الذاكرة
-            let users = JSON.parse(localStorage.getItem('serve_users') || "[]");
-            if (users.find(u => u.email === email)) return alert("هذا الإيميل مسجل مسبقاً!");
-
-            // تخزين البيانات مؤقتاً
-            tempUser = { name, email, pass };
-
-            generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+        // --- محرك التبديل بين الواجهات ---
+        function showUI(type) {
+            document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active', 'text-green-700'));
             
-            document.getElementById('sendBtn').innerText = "جاري الإرسال...";
-            document.getElementById('sendBtn').disabled = true;
-
-            // استخدام Service ID و Template ID من الصور
-            emailjs.send("service_dk24ksf", "template_14tc2a8", {
-                name: name,
-                email: email,
-                otp_code: generatedOTP
-            }).then(() => {
-                alert("تم إرسال كود التحقق لـ Gmail!");
-                document.getElementById('registerForm').classList.remove('active');
-                document.getElementById('otpForm').classList.add('active');
-            }).catch((err) => {
-                alert("فشل في الإرسال: " + JSON.stringify(err));
-                document.getElementById('sendBtn').innerText = "إعادة المحاولة";
-                document.getElementById('sendBtn').disabled = false;
-            });
+            if(type === 'login') {
+                document.getElementById('sectionLogin').classList.add('active');
+                document.getElementById('btnTabLogin').classList.add('active', 'text-green-700');
+            } else {
+                document.getElementById('sectionRegister').classList.add('active');
+                document.getElementById('btnTabReg').classList.add('active', 'text-green-700');
+            }
         }
 
-        function verifyOTP() {
-            let typed = "";
-            for(let i=1; i<=6; i++) typed += document.getElementById('i'+i).value;
-            
-            if(typed === generatedOTP) {
-                // حفظ الحساب بشكل نهائي في الذاكرة المحلية
-                let users = JSON.parse(localStorage.getItem('serve_users') || "[]");
-                users.push(tempUser);
-                localStorage.setItem('serve_users', JSON.stringify(users));
+        // --- سيرفر تسجيل الدخول (مستقل) ---
+        const LoginServer = {
+            execute: function() {
+                const email = document.getElementById('logEmail').value;
+                const pass = document.getElementById('logPass').value;
                 
-                alert("تم إنشاء الحساب وتفعيله بنجاح!");
-                window.location.href = "./w/";
-            } else {
-                alert("الكود غير صحيح!");
+                if(!email || !pass) return alert("أدخل بياناتك!");
+
+                // جلب البيانات من المخزن الوحيد
+                const users = JSON.parse(localStorage.getItem('serve_users') || "[]");
+                const user = users.find(u => u.email === email && u.pass === pass);
+
+                if(user) {
+                    alert("مرحباً بك " + user.name);
+                    window.location.href = "./w/";
+                } else {
+                    alert("خطأ في البيانات أو الحساب غير موجود!");
+                }
             }
-        }
+        };
 
-        // دالة تسجيل الدخول المصلحة
-        function handleLogin() {
-            const email = document.getElementById('loginEmail').value;
-            const pass = document.getElementById('loginPass').value;
+        // --- سيرفر إنشاء الحساب (مستقل) ---
+        const RegisterServer = {
+            otpCode: "",
+            tempData: {},
 
-            if(!email || !pass) return alert("المرجو إدخال الإيميل وكلمة المرور!");
+            sendOTP: function() {
+                const name = document.getElementById('regName').value;
+                const email = document.getElementById('regEmail').value;
+                const pass = document.getElementById('regPass').value;
 
-            // جلب قائمة المستخدمين من الذاكرة
-            let users = JSON.parse(localStorage.getItem('serve_users') || "[]");
-            
-            // البحث عن مستخدم يطابق الإيميل وكلمة المرور
-            const user = users.find(u => u.email === email && u.pass === pass);
-            
-            if (user) {
-                alert("مرحباً بك مجدداً " + user.name);
-                window.location.href = "./w/";
-            } else {
-                alert("خطأ! تأكد من الإيميل أو أنك مسجل أصلاً.");
+                if(!name || !email || !pass) return alert("املأ الخانات!");
+
+                // التأكد من عدم وجود الإيميل
+                const users = JSON.parse(localStorage.getItem('serve_users') || "[]");
+                if(users.find(u => u.email === email)) return alert("الإيميل مستخدم مسبقاً!");
+
+                this.tempData = { name, email, pass };
+                this.otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+                document.getElementById('regSubmitBtn').innerText = "جاري الإرسال...";
+                
+                emailjs.send("service_dk24ksf", "template_14tc2a8", {
+                    name: name,
+                    email: email,
+                    otp_code: this.otpCode
+                }).then(() => {
+                    alert("تم إرسال الكود!");
+                    document.getElementById('sectionRegister').classList.remove('active');
+                    document.getElementById('navigationTabs').style.display = 'none';
+                    document.getElementById('sectionOTP').classList.add('active');
+                });
+            },
+
+            verifyAndSave: function() {
+                const typed = document.getElementById('otpInput').value;
+                if(typed === this.otpCode) {
+                    let users = JSON.parse(localStorage.getItem('serve_users') || "[]");
+                    users.push(this.tempData);
+                    localStorage.setItem('serve_users', JSON.stringify(users));
+                    
+                    alert("تم التفعيل! يمكنك الآن الدخول.");
+                    location.reload(); // إعادة التحميل للعودة لصفحة الدخول
+                } else {
+                    alert("كود خاطئ!");
+                }
             }
-        }
+        };
     </script>
 </body>
 </html>
