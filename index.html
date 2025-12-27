@@ -5,144 +5,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ServeMaroc | التحقق من الحساب</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
         body { font-family: 'Cairo', sans-serif; }
-        
-        .hero-gradient {
-            background: linear-gradient(180deg, #fef08a 0%, #dcfce7 60%, #86efac 100%);
-            min-height: 100vh;
-            padding-bottom: 50px;
-        }
-
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-        }
-
+        .hero-gradient { background: linear-gradient(180deg, #fef08a 0%, #dcfce7 60%, #86efac 100%); min-height: 100vh; padding-bottom: 50px; }
+        .glass-panel { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.4); }
         .form-content { display: none; }
         .form-content.active { display: block; animation: fadeIn 0.4s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        
         .tab-btn.active { border-bottom: 4px solid #16a34a; color: #16a34a; font-weight: 900; }
-        
-        .otp-input {
-            width: 45px;
-            height: 55px;
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.5);
-        }
+        .otp-input { width: 45px; height: 55px; text-align: center; font-size: 1.5rem; font-weight: bold; border: 2px solid #e5e7eb; border-radius: 12px; background: rgba(255, 255, 255, 0.5); }
     </style>
 </head>
 <body class="bg-gray-50">
-
-    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 p-5 shadow-sm flex justify-between items-center px-10">
-        <div class="text-3xl font-black tracking-tighter uppercase text-gray-800">SERVE<span class="text-green-600">MAROC</span></div>
-        <a href="https://wa.me/212XXXXXXXXX" class="text-green-500 text-3xl"><i class="fa-brands fa-whatsapp"></i></a>
-    </nav>
-
     <section class="hero-gradient px-6 text-center pt-16">
-        <h1 class="text-5xl md:text-7xl font-black text-gray-900 mb-4 italic uppercase tracking-tighter">
-            SERVE<span class="text-green-600">MAROC</span>
-        </h1>
-
-        <div class="glass-panel p-10 max-w-lg mx-auto rounded-[40px] shadow-2xl border border-white/50 mb-16">
+        <div class="glass-panel p-10 max-w-lg mx-auto rounded-[40px] shadow-2xl mb-16">
             <div id="authTabs" class="flex mb-8 border-b border-gray-100">
-                <button id="loginTab" onclick="showForm('login')" class="tab-btn active w-1/2 pb-4 font-bold text-xl italic transition-all">تسجيل الدخول</button>
-                <button id="registerTab" onclick="showForm('register')" class="tab-btn w-1/2 pb-4 font-bold text-gray-400 text-xl italic transition-all">إنشاء حساب</button>
-            </div>
-
-            <div id="loginForm" class="form-content active space-y-6 text-right">
-                <div class="relative">
-                    <i class="fa fa-envelope absolute right-4 top-5 text-gray-400"></i>
-                    <input type="email" placeholder="البريد الإلكتروني" class="w-full p-5 pr-12 bg-gray-50/50 border rounded-2xl outline-none focus:ring-2 focus:ring-green-400 font-bold">
-                </div>
-                <div class="relative">
-                    <i class="fa fa-lock absolute right-4 top-5 text-gray-400"></i>
-                    <input type="password" placeholder="كلمة المرور" class="w-full p-5 pr-12 bg-gray-50/50 border rounded-2xl outline-none focus:ring-2 focus:ring-green-400 font-bold">
-                </div>
-                <button class="w-full bg-green-600 text-white p-6 rounded-2xl font-black text-xl shadow-lg hover:bg-green-700 transition flex justify-center items-center gap-2">
-                    دخول آمن <i class="fa-solid fa-right-to-bracket"></i>
-                </button>
+                <button id="loginTab" onclick="showForm('login')" class="tab-btn active w-1/2 pb-4 font-bold text-xl">تسجيل الدخول</button>
+                <button id="registerTab" onclick="showForm('register')" class="tab-btn w-1/2 pb-4 font-bold text-gray-400 text-xl">إنشاء حساب</button>
             </div>
 
             <div id="registerForm" class="form-content space-y-5 text-right">
-                <div class="relative">
-                    <i class="fa fa-user absolute right-4 top-5 text-gray-400"></i>
-                    <input type="text" placeholder="اسم المستخدم" class="w-full p-5 pr-12 bg-gray-50/50 border rounded-2xl outline-none focus:ring-2 focus:ring-green-400 font-bold">
-                </div>
-                <div class="relative">
-                    <i class="fa fa-envelope absolute right-4 top-5 text-gray-400"></i>
-                    <input id="regEmail" type="email" placeholder="البريد الإلكتروني (Gmail)" class="w-full p-5 pr-12 bg-gray-50/50 border rounded-2xl outline-none focus:ring-2 focus:ring-green-400 font-bold">
-                </div>
-                <div class="relative">
-                    <i class="fa fa-lock absolute right-4 top-5 text-gray-400"></i>
-                    <input type="password" placeholder="كلمة المرور" class="w-full p-5 pr-12 bg-gray-50/50 border rounded-2xl outline-none focus:ring-2 focus:ring-green-400 font-bold">
-                </div>
-                <button onclick="sendOTP()" class="w-full bg-black text-white p-6 rounded-2xl font-black text-xl shadow-lg hover:bg-gray-800 transition">
-                    إنشاء حساب جديد
-                </button>
+                <input id="regUser" type="text" placeholder="اسم المستخدم" class="w-full p-5 bg-gray-50/50 border rounded-2xl outline-none font-bold">
+                <input id="regEmail" type="email" placeholder="البريد الإلكتروني" class="w-full p-5 bg-gray-50/50 border rounded-2xl outline-none font-bold">
+                <button onclick="sendOTP()" class="w-full bg-black text-white p-6 rounded-2xl font-black text-xl shadow-lg">إنشاء حساب جديد</button>
             </div>
 
             <div id="otpForm" class="form-content space-y-6 text-center">
-                <div class="mb-4">
-                    <i class="fa-solid fa-paper-plane text-4xl text-green-500 mb-2"></i>
-                    <h3 class="text-2xl font-black">تحقق من بريدك</h3>
-                    <p class="text-gray-500 font-bold text-sm">أدخل الكود المكون من 6 أرقام المرسل إلى Gmail</p>
-                </div>
+                <h3 class="text-2xl font-black italic">أدخل كود التحقق</h3>
                 <div class="flex justify-center gap-2" dir="ltr">
-                    <input type="text" maxlength="1" class="otp-input focus:border-green-500 outline-none">
-                    <input type="text" maxlength="1" class="otp-input focus:border-green-500 outline-none">
-                    <input type="text" maxlength="1" class="otp-input focus:border-green-500 outline-none">
-                    <input type="text" maxlength="1" class="otp-input focus:border-green-500 outline-none">
-                    <input type="text" maxlength="1" class="otp-input focus:border-green-500 outline-none">
-                    <input type="text" maxlength="1" class="otp-input focus:border-green-500 outline-none">
+                    <input type="text" maxlength="1" class="otp-input">
+                    <input type="text" maxlength="1" class="otp-input">
+                    <input type="text" maxlength="1" class="otp-input">
+                    <input type="text" maxlength="1" class="otp-input">
+                    <input type="text" maxlength="1" class="otp-input">
+                    <input type="text" maxlength="1" class="otp-input">
                 </div>
-                <button class="w-full bg-green-600 text-white p-5 rounded-2xl font-black text-xl shadow-lg hover:bg-green-700 transition">
-                    تأكيد الكود والحساب
-                </button>
-                <button onclick="showForm('register')" class="text-sm text-gray-400 font-bold underline">تغيير البريد الإلكتروني</button>
+                <button onclick="verifyOTP()" class="w-full bg-green-600 text-white p-6 rounded-2xl font-black text-xl shadow-lg">تأكيد الكود والحساب</button>
             </div>
         </div>
     </section>
 
     <script>
-        function showForm(type) {
-            document.getElementById('loginForm').classList.remove('active');
-            document.getElementById('registerForm').classList.remove('active');
-            document.getElementById('otpForm').classList.remove('active');
-            document.getElementById('authTabs').style.display = 'flex';
-            
-            document.getElementById('loginTab').classList.remove('active');
-            document.getElementById('registerTab').classList.remove('active');
-            document.getElementById('loginTab').classList.add('text-gray-400');
-            document.getElementById('registerTab').classList.add('text-gray-400');
+        (function() {
+            emailjs.init("jKcfVtOrO41wNIxeK"); // Public Key الخاص بك
+        })();
 
-            if(type === 'login') {
-                document.getElementById('loginForm').classList.add('active');
-                document.getElementById('loginTab').classList.add('active');
-                document.getElementById('loginTab').classList.remove('text-gray-400');
-            } else if(type === 'register') {
-                document.getElementById('registerForm').classList.add('active');
-                document.getElementById('registerTab').classList.add('active');
-                document.getElementById('registerTab').classList.remove('text-gray-400');
-            }
+        function showForm(type) {
+            document.getElementById('registerForm').classList.add('active');
+            document.getElementById('registerTab').classList.add('active');
         }
 
         function sendOTP() {
-            // إخفاء التبويبات والفورم الحالي وإظهار واجهة الكود
-            document.getElementById('registerForm').classList.remove('active');
-            document.getElementById('authTabs').style.display = 'none';
-            document.getElementById('otpForm').classList.add('active');
-            
-            // ملاحظة: هنا يجب ربط الـ API الخاص بإرسال الإيميل حقيقةً
-            console.log("تم إرسال الكود إلى Gmail");
+            const emailAddr = document.getElementById('regEmail').value;
+            const generatedCode = Math.floor(100000 + Math.random() * 900000);
+            if(!emailAddr) return alert("يرجى إدخال البريد الإلكتروني");
+
+            // معرفات الخدمة والقالب
+            emailjs.send("service_dk24ksf", "template_m0v1jp8", {
+                email: emailAddr,
+                passcode: generatedCode
+            }).then(() => {
+                window.storedOTP = generatedCode;
+                alert("تم إرسال كود التحقق بنجاح!");
+                document.getElementById('registerForm').classList.remove('active');
+                document.getElementById('authTabs').style.display = 'none';
+                document.getElementById('otpForm').classList.add('active');
+            });
+        }
+
+        function verifyOTP() {
+            let enteredCode = "";
+            document.querySelectorAll('.otp-input').forEach(input => enteredCode += input.value);
+            if (enteredCode == window.storedOTP) {
+                alert("تم التحقق بنجاح!");
+                window.location.href = "home.html"; 
+            } else {
+                alert("الكود غير صحيح");
+            }
         }
     </script>
 </body>
