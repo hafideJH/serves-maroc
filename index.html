@@ -61,7 +61,13 @@
     </div>
 
     <script>
-        // تفعيل الحساب باستخدام الطريقة المباشرة لتجنب خطأ 404
+        // تهيئة المكتبة باستخدام Public Key الخاص بك
+        (function() {
+            emailjs.init({
+                publicKey: "jKcfVtOrO41wNIxeK",
+            });
+        })();
+
         function sendOTP() {
             const name = document.getElementById('regUser').value;
             const email = document.getElementById('regEmail').value;
@@ -69,20 +75,24 @@
 
             if(!name || !email) return alert("المرجو ملء البيانات");
 
-            // تم إدراج Public Key مباشرة داخل دالة الإرسال لضمان التعرف على الحساب
-            emailjs.send("service_dk24ksf", "template_14tc2a8", {
+            // المعاملات المطابقة لقالبك
+            const templateParams = {
                 name: name,
                 otp_code: code,
                 email: email
-            }, "jKcfVtOrO41wNIxeK") 
-            .then(() => {
-                window.storedOTP = code;
-                alert("تم إرسال كود التحقق بنجاح");
-                document.getElementById('registerForm').classList.remove('active');
-                document.getElementById('otpForm').classList.add('active');
-            }, (err) => {
-                alert("فشل الإرسال: تأكد من مفتاح Public Key في إعدادات EmailJS Account");
-            });
+            };
+
+            // استخدام معرف الخدمة والقالب من صورك
+            emailjs.send("service_dk24ksf", "template_14tc2a8", templateParams)
+                .then(() => {
+                    window.storedOTP = code;
+                    alert("تم إرسال كود التحقق بنجاح");
+                    document.getElementById('registerForm').classList.remove('active');
+                    document.getElementById('otpForm').classList.add('active');
+                }, (error) => {
+                    console.error('FAILED...', error);
+                    alert("خطأ: " + error.text);
+                });
         }
 
         function verifyOTP() {
