@@ -26,8 +26,20 @@
 
     <div class="glass-panel p-8 max-w-lg mx-auto rounded-[35px] shadow-2xl">
         <div id="authTabs" class="flex mb-8 border-b border-gray-100">
-            <button class="w-1/2 pb-4 font-bold text-lg text-gray-400">تسجيل الدخول</button>
-            <button class="w-1/2 pb-4 font-black text-lg border-b-4 border-green-600 text-green-600">إنشاء حساب</button>
+            <button id="loginTab" onclick="showForm('login')" class="w-1/2 pb-4 font-bold text-lg text-gray-400">تسجيل الدخول</button>
+            <button id="registerTab" onclick="showForm('register')" class="w-1/2 pb-4 font-black text-lg border-b-4 border-green-600 text-green-600">إنشاء حساب</button>
+        </div>
+
+        <div id="loginForm" class="form-content space-y-4 text-right">
+            <div class="relative">
+                <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                <input type="email" placeholder="البريد الإلكتروني" class="w-full p-4 pl-12 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold focus:border-green-500">
+            </div>
+            <div class="relative">
+                <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                <input type="password" placeholder="كلمة المرور" class="w-full p-4 pl-12 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold focus:border-green-500">
+            </div>
+            <button class="w-full bg-black text-white p-5 rounded-2xl font-black text-lg shadow-xl hover:bg-gray-900 transition">دخول</button>
         </div>
 
         <div id="registerForm" class="form-content active space-y-4 text-right">
@@ -43,7 +55,7 @@
                 <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
                 <input id="regPass" type="password" placeholder="كلمة المرور" class="w-full p-4 pl-12 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold focus:border-green-500">
             </div>
-            <button onclick="sendOTP()" class="w-full bg-black text-white p-5 rounded-2xl font-black text-lg shadow-xl hover:scale-[1.02] transition-transform">إرسال كود التحقق</button>
+            <button onclick="sendOTP()" class="w-full bg-black text-white p-5 rounded-2xl font-black text-lg shadow-xl hover:scale-[1.02] transition-transform">إنشاء حساب جديد</button>
         </div>
 
         <div id="otpForm" class="form-content space-y-6 text-center">
@@ -75,30 +87,51 @@
 
     <script>
         (function() {
-            // تهيئة المكتبة باستخدام مفتاحك
+            // تفعيل المفتاح العام (Public Key) الخاص بك
             emailjs.init({ publicKey: "jKcfVtOrO41wNIxeK" });
         })();
+
+        function showForm(type) {
+            const loginF = document.getElementById('loginForm');
+            const registerF = document.getElementById('registerForm');
+            const loginT = document.getElementById('loginTab');
+            const registerT = document.getElementById('registerTab');
+
+            if (type === 'register') {
+                registerF.classList.add('active');
+                loginF.classList.remove('active');
+                registerT.classList.add('active', 'border-green-600', 'text-green-600');
+                loginT.classList.remove('active', 'border-green-600', 'text-green-600');
+                loginT.classList.add('text-gray-400');
+            } else {
+                loginF.classList.add('active');
+                registerF.classList.remove('active');
+                loginT.classList.add('active', 'border-green-600', 'text-green-600');
+                registerT.classList.remove('active', 'border-green-600', 'text-green-600');
+                registerT.classList.add('text-gray-400');
+            }
+        }
 
         function sendOTP() {
             const name = document.getElementById('regUser').value;
             const email = document.getElementById('regEmail').value;
+            const pass = document.getElementById('regPass').value;
             const code = Math.floor(100000 + Math.random() * 900000);
 
-            if(!name || !email) return alert("المرجو ملء البيانات");
+            if(!name || !email || !pass) return alert("المرجو ملء جميع البيانات");
 
-            // الربط مع قالب EmailJS الخاص بك
             emailjs.send("service_dk24ksf", "template_14tc2a8", {
                 name: name,
                 otp_code: code,
                 email: email
             }).then(() => {
                 window.storedOTP = code;
-                alert("تم إرسال كود التحقق بنجاح!");
+                alert("تم إرسال كود التحقق بنجاح إلى بريدك");
                 document.getElementById('registerForm').classList.remove('active');
+                document.getElementById('authTabs').style.display = 'none';
                 document.getElementById('otpForm').classList.add('active');
             }, (err) => {
-                alert("خطأ: تأكد من إعدادات الحساب");
-                console.error(err);
+                alert("خطأ في الإرسال: " + JSON.stringify(err));
             });
         }
 
@@ -106,7 +139,7 @@
             let entered = "";
             document.querySelectorAll('.otp-input').forEach(i => entered += i.value);
             if (entered == window.storedOTP) {
-                alert("تم التحقق بنجاح!");
+                alert("تم التحقق بنجاح! مرحباً بك");
                 window.location.href = "home.html";
             } else {
                 alert("الكود غير صحيح");
