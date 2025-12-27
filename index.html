@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ServeMaroc | تجربة النظام</title>
+    <title>ServeMaroc | الدخول والتسجيل</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -14,20 +14,32 @@
         .form-content { display: none; }
         .form-content.active { display: block; animation: fadeIn 0.4s ease; }
         .otp-input { width: 45px; height: 55px; text-align: center; font-size: 1.5rem; font-weight: bold; border: 2px solid #e5e7eb; border-radius: 12px; transition: all 0.3s; }
-        .otp-input:focus { border-color: #16a34a; outline: none; box-shadow: 0 0 10px rgba(22, 163, 74, 0.1); }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .tab-btn.active { border-bottom: 4px solid #16a34a; color: #16a34a; font-weight: 900; }
     </style>
 </head>
 <body class="hero-gradient px-6 pt-10 pb-20">
     <div class="text-center mb-8">
         <h1 class="text-4xl font-black text-green-700 tracking-tighter">SERVE<span class="text-black/80">MAROC</span></h1>
-        <p class="text-gray-600 font-bold mt-1 italic">تجربة النظام (بدون إرسال إيميل)</p>
+        <p class="text-gray-600 font-bold mt-1 italic">المنصة رقم #1 لنمو السوشيال ميديا</p>
     </div>
 
     <div class="glass-panel p-8 max-w-lg mx-auto rounded-[35px] shadow-2xl">
-        <div id="authTabs" class="flex mb-8 border-b border-gray-100">
-            <button class="w-1/2 pb-4 font-bold text-lg text-gray-400">تسجيل الدخول</button>
-            <button class="w-1/2 pb-4 font-black text-lg border-b-4 border-green-600 text-green-600">إنشاء حساب</button>
+        <div class="flex mb-8 border-b border-gray-100">
+            <button id="loginTab" onclick="switchTab('login')" class="tab-btn w-1/2 pb-4 font-bold text-lg text-gray-400">تسجيل الدخول</button>
+            <button id="regTab" onclick="switchTab('reg')" class="tab-btn w-1/2 pb-4 font-black text-lg active">إنشاء حساب</button>
+        </div>
+
+        <div id="loginForm" class="form-content space-y-4 text-right">
+            <div class="relative">
+                <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                <input type="email" placeholder="البريد الإلكتروني" class="w-full p-4 pl-12 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold">
+            </div>
+            <div class="relative">
+                <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                <input type="password" placeholder="كلمة المرور" class="w-full p-4 pl-12 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold">
+            </div>
+            <button onclick="alert('مرحباً بك مجدداً!')" class="w-full bg-black text-white p-5 rounded-2xl font-black text-lg shadow-xl hover:scale-95 transition">دخول</button>
         </div>
 
         <div id="registerForm" class="form-content active space-y-4 text-right">
@@ -50,9 +62,8 @@
             <div class="mb-4">
                 <i class="fa-solid fa-shield-check text-green-600 text-4xl mb-2"></i>
                 <h3 class="text-xl font-black text-gray-800">أدخل الكود التجريبي</h3>
-                <p class="text-gray-500 text-sm font-bold italic"> (الكود هو 123456) </p>
+                <p class="text-gray-500 text-sm font-bold italic">(الكود هو 123456)</p>
             </div>
-            
             <div class="flex justify-center gap-2" dir="ltr">
                 <input type="text" maxlength="1" class="otp-input" oninput="move(this, 'i2')" id="i1">
                 <input type="text" maxlength="1" class="otp-input" oninput="move(this, 'i3')" id="i2">
@@ -61,39 +72,66 @@
                 <input type="text" maxlength="1" class="otp-input" oninput="move(this, 'i6')" id="i5">
                 <input type="text" maxlength="1" class="otp-input" id="i6">
             </div>
+            <button onclick="testVerify()" class="w-full bg-green-600 text-white p-5 rounded-2xl font-black text-lg shadow-lg">تأكيد الحساب</button>
+        </div>
+    </div>
 
-            <button onclick="testVerify()" class="w-full bg-green-600 text-white p-5 rounded-2xl font-black text-lg shadow-lg">تأكيد التجربة</button>
+    <div class="grid grid-cols-2 gap-4 max-w-lg mx-auto mt-10">
+        <div class="glass-panel p-6 rounded-3xl text-center shadow-lg border-b-4 border-white">
+            <i class="fa-solid fa-users text-green-500 text-2xl mb-2"></i>
+            <h4 class="font-black text-xl">+250k</h4>
+            <p class="text-xs text-gray-500 font-bold">عميل نشط</p>
+        </div>
+        <div class="glass-panel p-6 rounded-3xl text-center shadow-lg border-b-4 border-yellow-400">
+            <i class="fa-solid fa-bolt text-yellow-500 text-2xl mb-2"></i>
+            <h4 class="font-black text-xl">1 ثانية</h4>
+            <p class="text-xs text-gray-500 font-bold">سرعة التنفيذ</p>
         </div>
     </div>
 
     <script>
-        // كود تجريبي محدد مسبقاً
-        const demoCode = "123456";
+        // دالة التبديل بين الدخول والتسجيل
+        function switchTab(tab) {
+            const loginForm = document.getElementById('loginForm');
+            const regForm = document.getElementById('registerForm');
+            const otpForm = document.getElementById('otpForm');
+            const loginTab = document.getElementById('loginTab');
+            const regTab = document.getElementById('regTab');
+
+            otpForm.classList.remove('active');
+
+            if(tab === 'login') {
+                loginForm.classList.add('active');
+                regForm.classList.remove('active');
+                loginTab.classList.add('active');
+                regTab.classList.remove('active');
+            } else {
+                regForm.classList.add('active');
+                loginForm.classList.remove('active');
+                regTab.classList.add('active');
+                loginTab.classList.remove('active');
+            }
+        }
 
         function move(el, nextId) {
             if (el.value.length >= 1 && nextId) document.getElementById(nextId).focus();
         }
 
         function testSend() {
-            const name = document.getElementById('uName').value;
-            if(!name) return alert("كتب سميتك بعدا!");
-            
-            // تنبيه بالكود بدلاً من الإرسال الحقيقي
-            alert("هذا اختبار! الكود هو: " + demoCode);
-            
+            alert("هذا اختبار! الكود هو: 123456");
             document.getElementById('registerForm').classList.remove('active');
+            document.getElementById('loginForm').classList.remove('active');
             document.getElementById('otpForm').classList.add('active');
         }
 
         function testVerify() {
             let typed = "";
             for(let i=1; i<=6; i++) typed += document.getElementById('i'+i).value;
-            
-            if(typed === demoCode) {
-                alert("تم التفعيل التجريبي بنجاح! سيتم نقلك لصفحة home.html");
+            if(typed === "123456") {
+                alert("تم التفعيل! سيتم نقلك لصفحة home.html");
                 window.location.href = "home.html";
             } else {
-                alert("الكود لي دخلتي غلط! جرب 123456");
+                alert("الكود غلط!");
             }
         }
     </script>
