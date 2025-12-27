@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ServeMaroc | الدخول والتسجيل</title>
+    <title>ServeMaroc | نظام التحقق</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
@@ -13,9 +14,9 @@
         .glass-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.4); }
         .form-content { display: none; }
         .form-content.active { display: block; animation: fadeIn 0.4s ease; }
-        .otp-input { width: 45px; height: 55px; text-align: center; font-size: 1.5rem; font-weight: bold; border: 2px solid #e5e7eb; border-radius: 12px; transition: all 0.3s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .otp-input { width: 45px; height: 55px; text-align: center; font-size: 1.5rem; font-weight: bold; border: 2px solid #e5e7eb; border-radius: 12px; }
         .tab-btn.active { border-bottom: 4px solid #16a34a; color: #16a34a; font-weight: 900; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body class="hero-gradient px-6 pt-10 pb-20">
@@ -31,39 +32,20 @@
         </div>
 
         <div id="loginForm" class="form-content space-y-4 text-right">
-            <div class="relative">
-                <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                <input type="email" placeholder="البريد الإلكتروني" class="w-full p-4 pl-12 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold">
-            </div>
-            <div class="relative">
-                <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                <input type="password" placeholder="كلمة المرور" class="w-full p-4 pl-12 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold">
-            </div>
-            <button onclick="alert('مرحباً بك مجدداً!')" class="w-full bg-black text-white p-5 rounded-2xl font-black text-lg shadow-xl hover:scale-95 transition">دخول</button>
+            <input type="email" placeholder="البريد الإلكتروني" class="w-full p-4 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold">
+            <input type="password" placeholder="كلمة المرور" class="w-full p-4 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold">
+            <button class="w-full bg-black text-white p-5 rounded-2xl font-black text-lg shadow-xl">دخول</button>
         </div>
 
         <div id="registerForm" class="form-content active space-y-4 text-right">
-            <div class="relative">
-                <i class="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                <input id="uName" type="text" placeholder="اسم المستخدم" class="w-full p-4 pl-12 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold">
-            </div>
-            <div class="relative">
-                <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                <input id="uEmail" type="email" placeholder="البريد الإلكتروني" class="w-full p-4 pl-12 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold">
-            </div>
-            <div class="relative">
-                <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                <input id="uPass" type="password" placeholder="كلمة المرور" class="w-full p-4 pl-12 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold">
-            </div>
-            <button onclick="testSend()" class="w-full bg-black text-white p-5 rounded-2xl font-black text-lg shadow-xl">إرسال كود تجريبي</button>
+            <input id="uName" type="text" placeholder="اسم المستخدم" class="w-full p-4 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold">
+            <input id="uEmail" type="email" placeholder="البريد الإلكتروني" class="w-full p-4 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold">
+            <input id="uPass" type="password" placeholder="كلمة المرور" class="w-full p-4 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold">
+            <button id="sendBtn" onclick="sendOTP()" class="w-full bg-black text-white p-5 rounded-2xl font-black text-lg shadow-xl">إرسال كود التحقق</button>
         </div>
 
         <div id="otpForm" class="form-content space-y-6 text-center">
-            <div class="mb-4">
-                <i class="fa-solid fa-shield-check text-green-600 text-4xl mb-2"></i>
-                <h3 class="text-xl font-black text-gray-800">أدخل الكود التجريبي</h3>
-                <p class="text-gray-500 text-sm font-bold italic">(الكود هو 123456)</p>
-            </div>
+            <h3 class="text-xl font-black text-gray-800">تحقق من إيميلك</h3>
             <div class="flex justify-center gap-2" dir="ltr">
                 <input type="text" maxlength="1" class="otp-input" oninput="move(this, 'i2')" id="i1">
                 <input type="text" maxlength="1" class="otp-input" oninput="move(this, 'i3')" id="i2">
@@ -72,66 +54,65 @@
                 <input type="text" maxlength="1" class="otp-input" oninput="move(this, 'i6')" id="i5">
                 <input type="text" maxlength="1" class="otp-input" id="i6">
             </div>
-            <button onclick="testVerify()" class="w-full bg-green-600 text-white p-5 rounded-2xl font-black text-lg shadow-lg">تأكيد الحساب</button>
-        </div>
-    </div>
-
-    <div class="grid grid-cols-2 gap-4 max-w-lg mx-auto mt-10">
-        <div class="glass-panel p-6 rounded-3xl text-center shadow-lg border-b-4 border-white">
-            <i class="fa-solid fa-users text-green-500 text-2xl mb-2"></i>
-            <h4 class="font-black text-xl">+250k</h4>
-            <p class="text-xs text-gray-500 font-bold">عميل نشط</p>
-        </div>
-        <div class="glass-panel p-6 rounded-3xl text-center shadow-lg border-b-4 border-yellow-400">
-            <i class="fa-solid fa-bolt text-yellow-500 text-2xl mb-2"></i>
-            <h4 class="font-black text-xl">1 ثانية</h4>
-            <p class="text-xs text-gray-500 font-bold">سرعة التنفيذ</p>
+            <button onclick="verifyOTP()" class="w-full bg-green-600 text-white p-5 rounded-2xl font-black text-lg shadow-lg">تأكيد الحساب</button>
         </div>
     </div>
 
     <script>
-        // دالة التبديل بين الدخول والتسجيل
+        // تفعيل EmailJS بالـ Public Key ديالك الجديد
+        emailjs.init("WRpj_ZtTQw-eHAZDQ");
+
+        let generatedOTP = "";
+
         function switchTab(tab) {
-            const loginForm = document.getElementById('loginForm');
-            const regForm = document.getElementById('registerForm');
-            const otpForm = document.getElementById('otpForm');
-            const loginTab = document.getElementById('loginTab');
-            const regTab = document.getElementById('regTab');
-
-            otpForm.classList.remove('active');
-
-            if(tab === 'login') {
-                loginForm.classList.add('active');
-                regForm.classList.remove('active');
-                loginTab.classList.add('active');
-                regTab.classList.remove('active');
-            } else {
-                regForm.classList.add('active');
-                loginForm.classList.remove('active');
-                regTab.classList.add('active');
-                loginTab.classList.remove('active');
-            }
+            document.getElementById('loginForm').classList.toggle('active', tab === 'login');
+            document.getElementById('registerForm').classList.toggle('active', tab === 'reg');
+            document.getElementById('loginTab').classList.toggle('active', tab === 'login');
+            document.getElementById('regTab').classList.toggle('active', tab === 'reg');
         }
 
         function move(el, nextId) {
             if (el.value.length >= 1 && nextId) document.getElementById(nextId).focus();
         }
 
-        function testSend() {
-            alert("هذا اختبار! الكود هو: 123456");
-            document.getElementById('registerForm').classList.remove('active');
-            document.getElementById('loginForm').classList.remove('active');
-            document.getElementById('otpForm').classList.add('active');
+        function sendOTP() {
+            const name = document.getElementById('uName').value;
+            const email = document.getElementById('uEmail').value;
+            const btn = document.getElementById('sendBtn');
+
+            if(!name || !email) return alert("عمر المعلومات كاملة!");
+
+            btn.innerText = "جاري الإرسال...";
+            btn.disabled = true;
+
+            // توليد كود من 6 أرقام
+            generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+
+            // إرسال عبر EmailJS باستخدام الـ IDs ديالك
+            emailjs.send("service_dk24ksf", "template_14tc2a8", {
+                name: name,
+                email: email,
+                otp_code: generatedOTP
+            }).then(() => {
+                alert("صيفطنا ليك الكود للإيميل!");
+                document.getElementById('registerForm').classList.remove('active');
+                document.getElementById('otpForm').classList.add('active');
+            }).catch((err) => {
+                alert("خطأ: " + JSON.stringify(err));
+                btn.innerText = "إرسال كود التحقق";
+                btn.disabled = false;
+            });
         }
 
-        function testVerify() {
+        function verifyOTP() {
             let typed = "";
             for(let i=1; i<=6; i++) typed += document.getElementById('i'+i).value;
-            if(typed === "123456") {
-                alert("تم التفعيل! سيتم نقلك لصفحة home.html");
+            
+            if(typed === generatedOTP) {
+                alert("تم التحقق بنجاح!");
                 window.location.href = "home.html";
             } else {
-                alert("الكود غلط!");
+                alert("الكود غلط، عاود جرب.");
             }
         }
     </script>
