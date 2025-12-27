@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ServeMaroc | نظام التحقق</title>
+    <title>ServeMaroc | الدخول والتحقق</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -34,7 +34,7 @@
         <div id="loginForm" class="form-content space-y-4 text-right">
             <input type="email" placeholder="البريد الإلكتروني" class="w-full p-4 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold">
             <input type="password" placeholder="كلمة المرور" class="w-full p-4 bg-gray-50/50 border border-gray-200 rounded-2xl outline-none font-bold">
-            <button class="w-full bg-black text-white p-5 rounded-2xl font-black text-lg shadow-xl">دخول</button>
+            <button class="w-full bg-black text-white p-5 rounded-2xl font-black text-lg">دخول</button>
         </div>
 
         <div id="registerForm" class="form-content active space-y-4 text-right">
@@ -59,9 +59,7 @@
     </div>
 
     <script>
-        // تفعيل EmailJS بالـ Public Key ديالك الجديد
         emailjs.init("WRpj_ZtTQw-eHAZDQ");
-
         let generatedOTP = "";
 
         function switchTab(tab) {
@@ -78,29 +76,18 @@
         function sendOTP() {
             const name = document.getElementById('uName').value;
             const email = document.getElementById('uEmail').value;
-            const btn = document.getElementById('sendBtn');
-
-            if(!name || !email) return alert("عمر المعلومات كاملة!");
-
-            btn.innerText = "جاري الإرسال...";
-            btn.disabled = true;
-
-            // توليد كود من 6 أرقام
+            if(!name || !email) return alert("عمر المعلومات!");
+            
             generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
-
-            // إرسال عبر EmailJS باستخدام الـ IDs ديالك
+            
             emailjs.send("service_dk24ksf", "template_14tc2a8", {
                 name: name,
                 email: email,
                 otp_code: generatedOTP
             }).then(() => {
-                alert("صيفطنا ليك الكود للإيميل!");
+                alert("تم الإرسال!");
                 document.getElementById('registerForm').classList.remove('active');
                 document.getElementById('otpForm').classList.add('active');
-            }).catch((err) => {
-                alert("خطأ: " + JSON.stringify(err));
-                btn.innerText = "إرسال كود التحقق";
-                btn.disabled = false;
             });
         }
 
@@ -109,10 +96,11 @@
             for(let i=1; i<=6; i++) typed += document.getElementById('i'+i).value;
             
             if(typed === generatedOTP) {
-                alert("تم التحقق بنجاح!");
-                window.location.href = "home.html";
+                alert("تم التحقق! جاري التوجيه...");
+                // التوجيه للرابط النظيف /w/
+                window.location.href = "./w/"; 
             } else {
-                alert("الكود غلط، عاود جرب.");
+                alert("الكود غلط!");
             }
         }
     </script>
